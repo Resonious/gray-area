@@ -77,7 +77,11 @@
           var dimen, checkRect;
           dimen = platformEdge.relativeDimension;
           checkRect = unionExcluding(platform, player);
-          return checkRect[dimen] < player.body[dimen];
+          if (checkRect[dimen] < player.body[dimen]) {
+            return true;
+          } else {
+            return !Phaser.Rectangle.intersects(bodyBounds(platformEdge), checkRect);
+          }
         };
       }
     }

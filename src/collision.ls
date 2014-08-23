@@ -54,27 +54,9 @@ union-excluding = (platform, player) ->
     | otherwise =>
       (player, platform-edge) ->
         const dimen = platform-edge.relative-dimension
-
         const check-rect = union-excluding platform, player
 
-        check-rect[dimen] < player.body[dimen]
-
-  # process-edge: (color, platform) ->
-  #   | !color or !platform.color => throw "Something went wrong with platform/player color!"
-  #   | color is platform.color   => null
-  #   | otherwise =>
-  #     (player, platform-edge) ->
-  #       const dimen = platform-edge.relative-dimension
-  #       const player-dimen = player.body[dimen]
-
-  #       this-platform-included = false
-
-  #       check-overlap = (count, overlap) ->
-  #         if overlap.intersection[dimen] is player-dimen
-  #           this-platform-included = true if overlap.platform is platform
-  #           count + 1
-  #         else
-  #           count
-
-  #       good-count = fold check-overlap, 0 player.overlapping
-  #       good-count < 2
+        if check-rect[dimen] < player.body[dimen]
+          return true
+        else # FIXME this bit is a little finnickey sometimes
+          not Phaser.Rectangle.intersects (body-bounds platform-edge), check-rect
