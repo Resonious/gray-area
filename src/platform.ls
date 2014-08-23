@@ -32,17 +32,20 @@ class @Platform extends Phaser.Group
 
       @inside = scale (@create 0 0 color), w, h
 
-      @edges = []
-
-      @edges << @top    = scale (@create  0, -2,  'empty'), w, 1
+      @top    = scale (@create  0, -2,  'empty'), w, 1
         ..alignment = \top
-      @edges << @bottom = scale (@create  0, h+1, 'empty'), w, 1
+        ..body.check-collision.up = false
+      @bottom = scale (@create  0, h+1, 'empty'), w, 1
         ..alignment = \bottom
-      @edges << @left   = scale (@create -2,  0,  'empty'), 1, h
+        ..body.check-collision.down = false
+      @left   = scale (@create -2,  0,  'empty'), 1, h
         ..alignment = \left
-      @edges << @right  = scale (@create w+1, 0,  'empty'), 1, h
+        ..body.check-collision.left = false
+      @right  = scale (@create w+1, 0,  'empty'), 1, h
         ..alignment = \right
+        ..body.check-collision.right = false
 
+      @edges = [@top, @bottom, @left, @right]
       @each (.body.immovable = true)
 
   debug: (game) ->

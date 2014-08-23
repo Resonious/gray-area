@@ -35,23 +35,19 @@
       (function(w, h, scale){
         var x$, y$, z$, z1$;
         this.inside = scale(this.create(0, 0, color), w, h);
-        this.edges = [];
-        x$ = function(){
-          return this.edges((this.top = scale(this.create(0, -2, 'empty'), w, 1)).apply(this, arguments));
-        };
+        x$ = this.top = scale(this.create(0, -2, 'empty'), w, 1);
         x$.alignment = 'top';
-        y$ = function(){
-          return this.edges((this.bottom = scale(this.create(0, h + 1, 'empty'), w, 1)).apply(this, arguments));
-        };
+        x$.body.checkCollision.up = false;
+        y$ = this.bottom = scale(this.create(0, h + 1, 'empty'), w, 1);
         y$.alignment = 'bottom';
-        z$ = function(){
-          return this.edges((this.left = scale(this.create(-2, 0, 'empty'), 1, h)).apply(this, arguments));
-        };
+        y$.body.checkCollision.down = false;
+        z$ = this.left = scale(this.create(-2, 0, 'empty'), 1, h);
         z$.alignment = 'left';
-        z1$ = function(){
-          return this.edges((this.right = scale(this.create(w + 1, 0, 'empty'), 1, h)).apply(this, arguments));
-        };
+        z$.body.checkCollision.left = false;
+        z1$ = this.right = scale(this.create(w + 1, 0, 'empty'), 1, h);
         z1$.alignment = 'right';
+        z1$.body.checkCollision.right = false;
+        this.edges = [this.top, this.bottom, this.left, this.right];
         this.each(function(it){
           return it.body.immovable = true;
         });
