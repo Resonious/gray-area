@@ -27,13 +27,17 @@
     prototype.create = function(){
       customAddFunctions(this.game);
       (function(add, physics, world, camera){
-        var x$, this$ = this;
+        var x$, y$, z$, z1$, this$ = this;
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
         x$ = this.platforms = add.group();
-        x$.add(Platform.create.black(this.game, 135, 500, 516, 74));
-        x$.add(Platform.create.black(this.game, 20, 550, 700, 100));
+        y$ = x$.add(Platform.create.black(this.game, 135, 500, 516, 74));
+        y$.name = "Upper";
+        z$ = x$.add(Platform.create.black(this.game, 20, 550, 700, 100));
+        z$.name = "Lower";
+        z1$ = this.specialPlat = this.platforms.add(Platform.create.black(this.game, 20, 20, 100, 100));
+        z1$.name = "Special";
         this.blackPlayer = add.black.player(210, 210);
         this.whitePlayer = add.white.player(416, 150);
         camera.follow(this.blackPlayer);
@@ -52,9 +56,21 @@
         collide(this.blackPlayer);
         collide(this.whitePlayer);
       }.call(this, PlatformCollision.collide(this.game.physics.arcade, this.platforms)));
+      (function(mouse){
+        if (this.game.input.mousePointer.isDown) {
+          this.game.physics.arcade.moveToPointer(this.specialPlat.inside, 200);
+        } else {
+          this.specialPlat.body.velocity.setTo(0, 0);
+        }
+      }.call(this, this.game.input.mousePointer));
     };
     prototype.render = function(){
       'ass';
+      var this$ = this;
+      this.platforms.each(function(platform){
+        return each(bind$(this$.game.debug, 'body'))(
+        platform.edges);
+      });
     };
     prototype.playerColors = ['black', 'white'];
     prototype.switchPlayers = function(){

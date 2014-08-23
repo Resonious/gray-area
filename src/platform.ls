@@ -33,20 +33,37 @@ class @Platform extends Phaser.Group
       @inside = scale (@create 0 0 color), w, h
 
       @top    = scale (@create  0, -2,  'empty'), w, 1
-        ..alignment = \top
+        ..part = \top
+        ..relative-dimension = 'width'
         ..body.check-collision.up = false
-      @bottom = scale (@create  0, h+1, 'empty'), w, 1
-        ..alignment = \bottom
-        ..body.check-collision.down = false
-      @left   = scale (@create -2,  0,  'empty'), 1, h
-        ..alignment = \left
         ..body.check-collision.left = false
-      @right  = scale (@create w+1, 0,  'empty'), 1, h
-        ..alignment = \right
         ..body.check-collision.right = false
+      @bottom = scale (@create  0, h+1, 'empty'), w, 1
+        ..part = \bottom
+        ..relative-dimension = 'width'
+        ..body.check-collision.down = false
+        ..body.check-collision.left = false
+        ..body.check-collision.right = false
+      @left   = scale (@create -2,  0,  'empty'), 1, h
+        ..part = \left
+        ..relative-dimension = 'height'
+        ..body.check-collision.left = false
+        ..body.check-collision.up = false
+        ..body.check-collision.down = false
+      @right  = scale (@create w+1, 0,  'empty'), 1, h
+        ..part = \right
+        ..relative-dimension = 'height'
+        ..body.check-collision.right = false
+        ..body.check-collision.up = false
+        ..body.check-collision.down = false
 
       @edges = [@top, @bottom, @left, @right]
       @each (.body.immovable = true)
 
-  debug: (game) ->
+      @body = @inside.body
+
+  update: !->
+    @edges |> each ~> (it.body.velocity = @inside.body.velocity)
+
+  debug: (game) !->
     @each game.debug~body

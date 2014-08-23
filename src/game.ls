@@ -46,7 +46,12 @@ class @GameCore
 
       @platforms = add.group!
         ..add Platform.create.black @game, 135 500 516 74
+          ..name = "Upper"
         ..add Platform.create.black @game, 20  550 700 100
+          ..name = "Lower"
+
+      @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
+        ..name = "Special"
 
       @black-player = add.black.player 210 210
       @white-player = add.white.player 416 150
@@ -61,17 +66,6 @@ class @GameCore
       @switch-key = @game.input.keyboard.add-key(Phaser.Keyboard.TAB)
       @switch-key.on-down.add @switch-players
 
-      # @platforms = add.group!
-      #   ..enable-body = true
-
-      # ground = @platforms.create 0, world.height - 64, 'ground'
-      #   ..scale.set-to 2, 2
-      #   ..body.immovable = true
-
-      # ledge = @platforms.create 400, 100, 'ground'
-      #   ..body.immovable = true
-      # ledge2 = @platforms.create -150, 250, 'ground'
-      #   ..body.immovable = true
 
   update: !->
     # @player.update @arrow-keys, @game.time.physicsElapsed
@@ -82,9 +76,17 @@ class @GameCore
       collide @black-player
       collide @white-player
 
+    # DEBUG PLATFORM SSHITITTT
+    let mouse = @game.input.mouse-pointer
+      if @game.input.mouse-pointer.is-down 
+        @game.physics.arcade.move-to-pointer @special-plat.inside, 200
+      else
+        @special-plat.body.velocity.set-to 0 0
+
   render: !->
     'ass'
-    # box.each @game.debug~body
+    @platforms.each (platform) ~>
+      platform.edges |> each @game.debug~body
 
   player-colors: <[black white]>
 

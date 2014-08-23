@@ -36,21 +36,34 @@
         var x$, y$, z$, z1$;
         this.inside = scale(this.create(0, 0, color), w, h);
         x$ = this.top = scale(this.create(0, -2, 'empty'), w, 1);
-        x$.alignment = 'top';
+        x$.part = 'top';
+        x$.relativeDimension = 'width';
         x$.body.checkCollision.up = false;
+        x$.body.checkCollision.left = false;
+        x$.body.checkCollision.right = false;
         y$ = this.bottom = scale(this.create(0, h + 1, 'empty'), w, 1);
-        y$.alignment = 'bottom';
+        y$.part = 'bottom';
+        y$.relativeDimension = 'width';
         y$.body.checkCollision.down = false;
+        y$.body.checkCollision.left = false;
+        y$.body.checkCollision.right = false;
         z$ = this.left = scale(this.create(-2, 0, 'empty'), 1, h);
-        z$.alignment = 'left';
+        z$.part = 'left';
+        z$.relativeDimension = 'height';
         z$.body.checkCollision.left = false;
+        z$.body.checkCollision.up = false;
+        z$.body.checkCollision.down = false;
         z1$ = this.right = scale(this.create(w + 1, 0, 'empty'), 1, h);
-        z1$.alignment = 'right';
+        z1$.part = 'right';
+        z1$.relativeDimension = 'height';
         z1$.body.checkCollision.right = false;
+        z1$.body.checkCollision.up = false;
+        z1$.body.checkCollision.down = false;
         this.edges = [this.top, this.bottom, this.left, this.right];
         this.each(function(it){
           return it.body.immovable = true;
         });
+        this.body = this.inside.body;
       }.call(this, width || 1, height || 1, function(object, width, height){
         var x$, y$;
         x$ = object;
@@ -60,8 +73,15 @@
         return x$;
       }));
     }
+    prototype.update = function(){
+      var this$ = this;
+      each(function(it){
+        return it.body.velocity = this$.inside.body.velocity;
+      })(
+      this.edges);
+    };
     prototype.debug = function(game){
-      return this.each(bind$(game.debug, 'body'));
+      this.each(bind$(game.debug, 'body'));
     };
     return Platform;
   }(Phaser.Group));
