@@ -55,6 +55,7 @@
     function Player(game, x, y, color){
       var x$, y$;
       Player.superclass.call(this, game, x, y, "player-" + color);
+      this.color = color;
       game.physics.arcade.enable(this);
       this.anchor.setTo(0.5, 0.5);
       x$ = this.body;
@@ -85,7 +86,7 @@
       keys = null;
       axis = 0;
       jump = 0;
-      if (this.arrowKeys) {
+      if (this.arrowKeys && this.arrowKeys()) {
         keys = this.arrowKeys();
         axis = calculateAxis(keys.left, keys.right);
         jump = keys.up.isDown;
@@ -150,13 +151,13 @@
         towardsZeroBy = towards(this.body.velocity.x, 0);
         this.body.velocity.x = towardsZeroBy(this.deceleration);
       }
-      if (this.body.blocked.down) {
+      if (this.isGrounded()) {
         this.airTimer = 0;
       } else {
         this.airTimer += delta;
       }
       if (jump) {
-        if (this.body.blocked.down || this.airTimer < this.jumpWhileOffGroundTime) {
+        if (this.isGrounded() || this.airTimer < this.jumpWhileOffGroundTime) {
           this.body.velocity.y = -this.jumpForce;
           this.jumpTimer = 0.1;
         } else if (this.jumpTimer !== 0) {
@@ -169,6 +170,9 @@
       if (this.jumpTimer >= this.jumpTimeout) {
         this.jumpTimer = 0;
       }
+    };
+    prototype.isGrounded = function(){
+      return this.body.blocked.down || this.body.touching.down;
     };
     return Player;
   }(Phaser.Sprite));

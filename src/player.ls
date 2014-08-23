@@ -31,6 +31,7 @@ class @Player extends Phaser.Sprite
   (game, x, y, color) ->
     super game, x, y, "player-#color"
 
+    @color = color
     game.physics.arcade.enable this
 
     @anchor.set-to 0.5 0.5
@@ -65,7 +66,7 @@ class @Player extends Phaser.Sprite
     keys = null
     axis = 0
     jump = 0
-    if @arrow-keys
+    if @arrow-keys and @arrow-keys!
       keys = @arrow-keys!
       axis = calculate-axis keys.left, keys.right
       jump = keys.up.is-down
@@ -109,13 +110,13 @@ class @Player extends Phaser.Sprite
       towards-zero-by = @body.velocity.x `towards` 0
       @body.velocity.x = towards-zero-by @deceleration
 
-    if @body.blocked.down
+    if @is-grounded!
       @air-timer = 0
     else
       @air-timer += delta
 
     if jump
-      if @body.blocked.down or @air-timer < @jump-while-off-ground-time
+      if @is-grounded! or @air-timer < @jump-while-off-ground-time
         @body.velocity.y = -@jump-force
         @jump-timer = 0.1
 
@@ -128,3 +129,4 @@ class @Player extends Phaser.Sprite
     if @jump-timer >= @jump-timeout
       @jump-timer = 0
 
+  is-grounded: -> @body.blocked.down or @body.touching.down
