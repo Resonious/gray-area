@@ -20,8 +20,8 @@
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };
     prototype.create = function(){
-      (function(add, physics, world){
-        var x$, y$;
+      (function(add, physics, world, camera){
+        var x$, y$, this$ = this;
         console.log('lmfao!!!!');
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
@@ -32,7 +32,12 @@
         y$.resizeWorld();
         this.player = new Player(this.game, 210, 210, 'black');
         add.existing(this.player);
-      }.call(this, this.game.add, this.game.physics, this.game.world));
+        camera.follow(this.player);
+        this.arrowKeys = this.game.input.keyboard.createCursorKeys();
+        this.player.arrowKeys = function(){
+          return this$.arrowKeys;
+        };
+      }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.update = function(){
       var x$;

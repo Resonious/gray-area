@@ -18,7 +18,8 @@ class @GameCore
   create: !->
     let (add     = @game.add, 
          physics = @game.physics, 
-         world   = @game.world)
+         world   = @game.world,
+         camera  = @game.camera)
 
       console.log 'lmfao!!!!'
 
@@ -39,9 +40,10 @@ class @GameCore
 
       @player = new Player(@game, 210, 210, 'black')
       add.existing @player
+      camera.follow @player
 
-      # add.existing @player
-      # @arrow-keys = @game.input.keyboard.create-cursor-keys!
+      @arrow-keys = @game.input.keyboard.create-cursor-keys!
+      @player.arrow-keys = ~> @arrow-keys
 
       # @platforms = add.group!
       #   ..enable-body = true
@@ -61,5 +63,6 @@ class @GameCore
     # # Protip: do collisions before messing with positions
     @game.physics.arcade
       ..collide @player, @map-layer
+
   render: !->
     @game.debug.body(@player);
