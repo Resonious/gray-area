@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Gray Area</title>
+        <script src="phaser.min.js"></script>
+        <script src="prelude.js"></script>
+        <script src="game/src/player.js"></script>
+        <script src="game/src/game.js"></script>
+    </head>
+    <body>
+    <script type="text/javascript">
+
+    window.onload = function() {
+        var game;
+        game = new Phaser.Game(800, 600, Phaser.AUTO, '', new GameCore(game));
+    };
+
+    </script>
+
+    </body>
+</html>
