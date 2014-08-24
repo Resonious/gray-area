@@ -1,5 +1,8 @@
 {each, all, map, filter, first, head, lines, keys, values} = require 'prelude-ls'
 
+mul = (vec, scalar) -->
+  new Phaser.Point(vec.x * scalar, vec.y * scalar)
+
 class @GameCore
   (game) !->
     @game = game
@@ -96,7 +99,7 @@ class @GameCore
 
     [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
 
-    @game.camera.follow @black-player
+    # @game.camera.follow @black-player
     @current-color = \black
     @black-player.current = true
     @white-player.current = false
@@ -116,6 +119,8 @@ class @GameCore
         @locator.x = player.x
         @locator.y = player.y - player.body.height
 
+    @move-camera!
+
     # DEBUG PLATFORM SSHITITTT
     # let mouse = @game.input.mouse-pointer
     #   if @game.input.mouse-pointer.is-down 
@@ -125,7 +130,7 @@ class @GameCore
 
   render: !->
     'ass'
-    @game.debug.body @current-level.gray
+    # @game.debug.body @current-level.gray
     # @current-level.platforms |> each (platform) ~>
     #   platform.each @game.debug~body
 
@@ -138,6 +143,19 @@ class @GameCore
     console.log "====== CAMERA ======="
     console.log "#{@game.camera.x}, #{@game.camera.y}"
     '=========== done ==========='
+
+  move-camera: ->
+    const player = @current-player!
+    const cam-point = new Phaser.Point(
+      @game.camera.x + @game.camera.width/2, @game.camera.y + @game.camera.height/2
+    )
+    const player-point = new Phaser.Point(player.body.x, player.body.y)
+
+    const target = Phaser.Point.interpolate cam-point, player-point, 0.08
+
+    @game.camera
+      ..x = target.x - @game.camera.width/2
+      ..y = target.y - @game.camera.height/2
 
   finish-player: (player) ~>
     return false if player.finished
@@ -163,7 +181,7 @@ class @GameCore
     @current-player!.current = false
     @current-color = other-color
     @current-player!.current = true
-    @game.camera.follow(@current-player!)
+    # @game.camera.follow(@current-player!)
 
     const target = if @current-color is \black then 180 else 0
     @game.add.tween(@indicator)
@@ -184,7 +202,7 @@ class @GameCore
       ..x = x
       ..y = y
       ..body
-        ..set-size width * 0.8, width * 0.8
+        ..set-size width * 0.9, width * 0.9
 
 custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->
