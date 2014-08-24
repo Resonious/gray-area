@@ -7,6 +7,7 @@
     var prototype = GameCore.prototype, constructor = GameCore;
     function GameCore(game){
       this.switchPlayers = bind$(this, 'switchPlayers', prototype);
+      this.currentPlayer = bind$(this, 'currentPlayer', prototype);
       this.game = game;
     }
     prototype.preload = function(){
@@ -21,16 +22,19 @@
       x$.image('black', asset('gfx/tiles/black.png'));
       x$.image('white', asset('gfx/tiles/white.png'));
       x$.image('empty', asset('gfx/tiles/empty.png'));
+      x$.image('indicator', asset('gfx/ui/indicator.png'));
+      x$.image('locator', asset('gfx/ui/locator.png'));
       x$.spritesheet('player-black', asset('gfx/player/black.png'), 84, 84);
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };
     prototype.create = function(){
       customAddFunctions(this.game);
       (function(add, physics, world, camera){
-        var x$, y$, z$, z1$, this$ = this;
+        var x$, y$, z$, z1$, z2$, z3$, z4$, this$ = this;
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.world.height = 600;
         x$ = this.platforms = add.group();
         y$ = x$.add(Platform.create.black(this.game, 135, 500, 516, 74));
         y$.name = "Upper";
@@ -42,6 +46,13 @@
         this.whitePlayer = add.white.player(416, 150);
         camera.follow(this.blackPlayer);
         this.currentColor = 'black';
+        z2$ = this.locator = add.sprite(0, 0, 'locator');
+        z2$.anchor.setTo(0.5, 0.5);
+        z3$ = this.gui = add.group();
+        z3$.fixedToCamera = true;
+        z4$ = this.indicator = this.gui.create(700, 100, 'indicator');
+        z4$.anchor.setTo(0.5, 0.5);
+        z4$.angle = 180;
         this.arrowKeys = this.game.input.keyboard.createCursorKeys();
         each(function(it){
           return it.arrowKeys = this$.getPlayerKeys(it.color);
@@ -56,6 +67,12 @@
         collide(this.blackPlayer);
         collide(this.whitePlayer);
       }.call(this, PlatformCollision.collide(this.game.physics.arcade, this.platforms)));
+      (function(player){
+        if (player) {
+          this.locator.x = player.x;
+          this.locator.y = player.y - player.body.height;
+        }
+      }.call(this, this.currentPlayer()));
       (function(mouse){
         if (this.game.input.mousePointer.isDown) {
           this.game.physics.arcade.moveToPointer(this.specialPlat.inside, 200);
@@ -66,19 +83,28 @@
     };
     prototype.render = function(){
       'ass';
-      var this$ = this;
-      this.platforms.each(function(platform){
-        return each(bind$(this$.game.debug, 'body'))(
-        platform.edges);
-      });
+    };
+    prototype.currentPlayer = function(){
+      switch (this.currentColor) {
+      case 'black':
+        return this.blackPlayer;
+      case 'white':
+        return this.whitePlayer;
+      default:
+        throw "why even try";
+      }
     };
     prototype.playerColors = ['black', 'white'];
     prototype.switchPlayers = function(){
-      var this$ = this;
+      var target, this$ = this;
       this.currentColor = head(filter(function(it){
         return it !== this$.currentColor;
       }, this.playerColors));
-      return this.game.camera.follow(this[this.currentColor + "-player"]);
+      this.game.camera.follow(this[this.currentColor + "-player"]);
+      target = this.currentColor === 'black' ? 180 : 0;
+      return this.game.add.tween(this.indicator).to({
+        angle: target
+      }, 1000, Phaser.Easing.Quadratic.InOut, true);
     };
     prototype.getPlayerKeys = function(color){
       var this$ = this;

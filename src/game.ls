@@ -16,6 +16,9 @@ class @GameCore
       ..image 'white' asset 'gfx/tiles/white.png'
       ..image 'empty' asset 'gfx/tiles/empty.png'
 
+      ..image 'indicator' asset 'gfx/ui/indicator.png'
+      ..image 'locator' asset 'gfx/ui/locator.png'
+
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
       # ..spritesheet 'player' (asset 'img/player/player.png'), 32 48
@@ -35,15 +38,7 @@ class @GameCore
 
       physics.start-system Phaser.Physics.ARCADE
 
-      # add.sprite 0 0 'sky'
-
-      # @map = add.tilemap 'test-map'
-        # ..add-tileset-image 'test-tiles'
-        # ..set-collision 1, true
-
-      # @map-layer = @map.create-layer 'First'
-      #   ..resize-world!
-
+      @game.world.height = 600
       @platforms = add.group!
         ..add Platform.create.black @game, 135 500 516 74
           ..name = "Upper"
@@ -55,10 +50,18 @@ class @GameCore
 
       @black-player = add.black.player 210 210
       @white-player = add.white.player 416 150
-
       # not racist
       camera.follow @black-player
       @current-color = \black
+
+      @locator = add.sprite 0 0 'locator'
+        ..anchor.set-to 0.5 0.5
+
+      @gui = add.group!
+        ..fixed-to-camera = true
+      @indicator = @gui.create 700 100 'indicator'
+        ..anchor.set-to 0.5 0.5
+        ..angle = 180
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
       [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
@@ -76,6 +79,11 @@ class @GameCore
       collide @black-player
       collide @white-player
 
+    let player = @current-player!
+      if player
+        @locator.x = player.x
+        @locator.y = player.y - player.body.height
+
     # DEBUG PLATFORM SSHITITTT
     let mouse = @game.input.mouse-pointer
       if @game.input.mouse-pointer.is-down 
@@ -85,14 +93,22 @@ class @GameCore
 
   render: !->
     'ass'
-    @platforms.each (platform) ~>
-      platform.edges |> each @game.debug~body
+    # @platforms.each (platform) ~>
+    #   platform.edges |> each @game.debug~body
+
+  current-player: ~> switch @current-color
+   | \black => @black-player
+   | \white => @white-player
+   | otherwise => throw "why even try"
 
   player-colors: <[black white]>
-
   switch-players: ~>
     @current-color = head filter ~>(it isnt @current-color), @player-colors
     @game.camera.follow(@["#{@current-color}-player"])
+
+    const target = if @current-color is \black then 180 else 0
+    @game.add.tween(@indicator).to(
+      {angle: target}, 1000, Phaser.Easing.Quadratic.InOut, true)
 
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null
