@@ -57,6 +57,9 @@ class @Player extends Phaser.Sprite
   wall-slide-hit: null
   wall-jump-timer: 0.0
 
+  current: false
+  finished: false
+
   should-die: false
 
   (game, x, y, color) ->
@@ -98,11 +101,19 @@ class @Player extends Phaser.Sprite
 
     @target-direction = axis unless axis is 0
 
-    @update-animation axis, delta
-    @update-movement  axis, jump, delta
+    unless @finished
+      @update-animation axis, delta
+      @update-movement  axis, jump, delta
 
-    # console.log 'huh' if @body.embedded
-    # ^ this is gay
+  finish: !->
+    return if @finished
+    @finished = true
+    @load-texture 'player-gray'
+    @animations.stop!
+    @body.gravity.set-to 0 0
+    @game.add.tween(@body.velocity)
+      ..to {x: 0, y: 0}, 150, Phaser.Easing.Quadratic.InOut, true
+    # TODO finish sound!
 
   update-animation: (axis, delta) !->
     direction = signum @body.velocity.x or 0

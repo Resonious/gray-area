@@ -1,4 +1,4 @@
-{each, map, filter, first, head, lines, keys, values} = require 'prelude-ls'
+{each, all, map, filter, first, head, lines, keys, values} = require 'prelude-ls'
 
 class @GameCore
   (game) !->
@@ -24,13 +24,15 @@ class @GameCore
       ..audio 'jump' asset 'sfx/jump.ogg'
       ..audio 'death' asset 'sfx/death.ogg'
       ..audio 'swap' asset 'sfx/swap.ogg'
+      ..audio 'cant-swap' asset 'sfx/cant-swap.ogg'
 
       ..audio 'bgm' asset 'music/gray.ogg'
 
-      ..script 'gray-filter' asset 'filters/gray.js'
+      # ..script 'gray-filter' asset 'filters/gray.js'
 
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
+      ..spritesheet 'player-gray'  (asset 'gfx/player/gray.png'), 84 84
       # ..spritesheet 'player' (asset 'img/player/player.png'), 32 48
       # ..image 'sky' asset 'img/sky.png'
       # ..image 'ground' asset 'img/ground.png'
@@ -67,7 +69,7 @@ class @GameCore
         ..angle = 180
 
       @swap-sound = add.audio 'swap'
-      @@gray-filter = @game.add.filter 'Gray'
+      @cant-swap-sound = add.audio 'cant-swap'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
 
@@ -96,6 +98,8 @@ class @GameCore
 
     @game.camera.follow @black-player
     @current-color = \black
+    @black-player.current = true
+    @white-player.current = false
 
   update: !->
     # # Protip: do collisions before messing with positions
@@ -103,6 +107,9 @@ class @GameCore
     let collide = PlatformCollision.collide @game.physics.arcade, @current-level.platforms
       collide @black-player if @black-player
       collide @white-player if @white-player
+
+    [@black-player, @white-player] |> each (player) ~>
+      @game.physics.arcade.collide player, @current-level.gray, null, @finish-player
 
     let player = @current-player!
       if player
@@ -118,6 +125,7 @@ class @GameCore
 
   render: !->
     'ass'
+    @game.debug.body @current-level.gray
     # @current-level.platforms |> each (platform) ~>
     #   platform.each @game.debug~body
 
@@ -131,18 +139,35 @@ class @GameCore
     console.log "#{@game.camera.x}, #{@game.camera.y}"
     '=========== done ==========='
 
-  current-player: ~> switch @current-color
+  finish-player: (player) ~>
+    return false if player.finished
+    player.finish!
+
+    if [@black-player, @white-player] |> all (.finished)
+      throw "GAME NEEDS FINISHING"
+    else
+      @switch-players! if player.current
+    false
+
+  current-player: (color) ~> switch color or @current-color
     | \black => @black-player
     | \white => @white-player
 
   player-colors: <[black white]>
   switch-players: ~>
-    @current-color = head filter ~>(it isnt @current-color), @player-colors
+    const other-color = head filter ~>(it isnt @current-color), @player-colors
+    if (@current-player other-color).finished
+      @cant-swap-sound.play '' 0 1 false
+      return
+
+    @current-player!.current = false
+    @current-color = other-color
+    @current-player!.current = true
     @game.camera.follow(@current-player!)
 
     const target = if @current-color is \black then 180 else 0
-    @game.add.tween(@indicator).to(
-      {angle: target}, 1000, Phaser.Easing.Quadratic.InOut, true)
+    @game.add.tween(@indicator)
+      ..to {angle: target}, 1000, Phaser.Easing.Quadratic.InOut, true
 
     @swap-sound.play '' 0 1 false
 
@@ -158,6 +183,8 @@ class @GameCore
       ..height = height
       ..x = x
       ..y = y
+      ..body
+        ..set-size width * 0.8, width * 0.8
 
 custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->

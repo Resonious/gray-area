@@ -81,6 +81,8 @@
     prototype.wallSlideX = null;
     prototype.wallSlideHit = null;
     prototype.wallJumpTimer = 0.0;
+    prototype.current = false;
+    prototype.finished = false;
     prototype.shouldDie = false;
     function Player(game, x, y, color){
       var x$, y$;
@@ -120,8 +122,25 @@
       if (axis !== 0) {
         this.targetDirection = axis;
       }
-      this.updateAnimation(axis, delta);
-      this.updateMovement(axis, jump, delta);
+      if (!this.finished) {
+        this.updateAnimation(axis, delta);
+        this.updateMovement(axis, jump, delta);
+      }
+    };
+    prototype.finish = function(){
+      var x$;
+      if (this.finished) {
+        return;
+      }
+      this.finished = true;
+      this.loadTexture('player-gray');
+      this.animations.stop();
+      this.body.gravity.setTo(0, 0);
+      x$ = this.game.add.tween(this.body.velocity);
+      x$.to({
+        x: 0,
+        y: 0
+      }, 150, Phaser.Easing.Quadratic.InOut, true);
     };
     prototype.updateAnimation = function(axis, delta){
       var direction, target, absIs, ref$;
