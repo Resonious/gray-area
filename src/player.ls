@@ -149,13 +149,14 @@ class @Player extends Phaser.Sprite
 
     # ========== WALL SLIDING AND AIR TIMER =============
     const near-wall-slide-x = @body.x > @wall-slide-x - 1 and @body.x < @wall-slide-x + 1
+    const hit-right = (@hit \right)
+    const hit-left  = (@hit \left)
     const new-wall-sliding = (
-        (@hit \right) or (@hit \left) or near-wall-slide-x) and not @is-grounded!
+        hit-right or hit-left or near-wall-slide-x) and not @is-grounded!
 
-    if new-wall-sliding and not @wall-sliding and @body.velocity.y > 0
-      @body.velocity.y = 0 
+    if new-wall-sliding and not @wall-sliding
+      @body.velocity.y = 0 if @body.velocity.y > 0
       @wall-slide-x = @body.x
-      @wall-slide-hit = if (@hit \right) then -1 else 1
 
     @wall-sliding = new-wall-sliding
 
@@ -163,6 +164,7 @@ class @Player extends Phaser.Sprite
       mul @gravity, 0, @body.gravity
     
     if @wall-sliding
+      @wall-slide-hit = if hit-right then -1 else if hit-left then 1 else -@target-direction
       mul @gravity, @@wall-slide-factor, @body.gravity if @body.velocity.y > 0
     else
       mul @gravity, 1, @body.gravity
@@ -180,6 +182,7 @@ class @Player extends Phaser.Sprite
     # ========== JUMPING ===========
     if jump
       if @wall-sliding and @air-timer > 0.15 and not @jumped
+        # WALL JUMP!
         @body.velocity.y = -@jump-force * 1.5
         @body.velocity.x = @wall-slide-hit * @jump-force
 
@@ -189,11 +192,13 @@ class @Player extends Phaser.Sprite
         @sound.jump.play '' 0 1 false
 
       else if @is-grounded! or @air-timer < @jump-while-off-ground-time
+        # NORMAL JUMP!
         @body.velocity.y = -@jump-force
         @sound.jump.play '' 0 1 false if @jump-timer is 0
         @jump-timer = 0.1
 
       else if @jump-timer isnt 0
+        # BOOST HEIGHT WHILST HOLDING JUMP BUTTON!
         @body.velocity.y -= @jump-force * @jump-boost-factor
 
     if @jump-timer isnt 0

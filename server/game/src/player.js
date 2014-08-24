@@ -155,7 +155,7 @@
       }
     };
     prototype.updateMovement = function(cAxis, jump, delta){
-      var passed, towardsZeroBy, nearWallSlideX, newWallSliding;
+      var passed, towardsZeroBy, nearWallSlideX, hitRight, hitLeft, newWallSliding;
       if (isNaN(
       this.body.velocity.x)) {
         this.body.velocity.x = 0;
@@ -187,17 +187,25 @@
         this.body.velocity.x = towardsZeroBy(this.deceleration);
       }
       nearWallSlideX = this.body.x > this.wallSlideX - 1 && this.body.x < this.wallSlideX + 1;
-      newWallSliding = (this.hit('right') || this.hit('left') || nearWallSlideX) && !this.isGrounded();
-      if (newWallSliding && !this.wallSliding && this.body.velocity.y > 0) {
-        this.body.velocity.y = 0;
+      hitRight = this.hit('right');
+      hitLeft = this.hit('left');
+      newWallSliding = (hitRight || hitLeft || nearWallSlideX) && !this.isGrounded();
+      if (newWallSliding && !this.wallSliding) {
+        if (this.body.velocity.y > 0) {
+          this.body.velocity.y = 0;
+        }
         this.wallSlideX = this.body.x;
-        this.wallSlideHit = this.hit('right') ? -1 : 1;
       }
       this.wallSliding = newWallSliding;
       if (this.wallJumpTimer > 0) {
         mul(this.gravity, 0, this.body.gravity);
       }
       if (this.wallSliding) {
+        this.wallSlideHit = hitRight
+          ? -1
+          : hitLeft
+            ? 1
+            : -this.targetDirection;
         if (this.body.velocity.y > 0) {
           mul(this.gravity, constructor.wallSlideFactor, this.body.gravity);
         }
