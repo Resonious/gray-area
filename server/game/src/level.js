@@ -29,7 +29,7 @@
             x$ = context.core.currentPlayer(color);
             x$.x = x;
             x$.y = y;
-            x$.restore();
+            x$.pleaseRestore = true;
             return x$;
           } else {
             return context.game.add[color].player(x, y);
@@ -64,6 +64,13 @@
           args = slice$.call(arguments);
           return (ref$ = context.level.platform).ofColor.apply(ref$, ['white'].concat(slice$.call(args)));
         }
+      },
+      text: function(x, y, content){
+        return context.add(new Phaser.Text(context.game, x, y, content, {
+          font: "45px Arial",
+          fill: '#C0C0C0',
+          align: "center"
+        }));
       },
       danger: function(x, y, w, h){
         return context.game.add.danger(x, y, w, h);

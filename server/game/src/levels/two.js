@@ -21,7 +21,7 @@
       y$.white(564, 684, 61, 181);
       y$.white(0, 527, 746, 55);
       y$.white(375, 363, 99, 116);
-      y$.black(744, 883, 328, 231, this.elevator);
+      y$.black(744, 644, 328, 231, this.elevator);
       x$.danger(0, 1919, 2000, 81);
       z$ = x$.player;
       z$.black(684, 261);
@@ -30,17 +30,13 @@
       return x$;
     };
     prototype.elevator = function(platform){
-      var x$;
-      x$ = this.game.add.tween(platform);
-      x$.to({
-        y: 117
-      }, 10000, Phaser.Easing.Linear.None);
-      x$.to({
-        y: 883
-      }, 10000, Phaser.Easing.Linear.None);
-      x$.loop();
-      x$.start();
-      return platform.customUpdate = null;
+      var body;
+      body = platform.body;
+      if (body.y <= 107) {
+        return body.velocity.y = 150;
+      } else if (body.y >= 644) {
+        return body.velocity.y = -150;
+      }
     };
     function Two(){
       this.elevator = bind$(this, 'elevator', prototype);

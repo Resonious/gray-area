@@ -10,12 +10,13 @@
       x$ = level;
       y$ = x$.platform;
       y$.black(0, 285, 861, 78);
-      y$.black(0, 0, 291, 289);
-      y$.black(507, 159, 100, 403, this.movesOnAxis('x'));
+      y$.black(0, 0, 291, 1500);
+      y$.black(507, 159, 100, 403, this.canMove);
       y$.black(951, 283, 259, 197);
       y$.black(1127, 480, 84, 349);
       y$.black(625, 915, 875, 91);
-      y$.black(1086, 725, 414, 94, this.movesOnAxis('y'));
+      y$.black(1086, 725, 414, 94, this.canMove);
+      x$.text(1248, 587, "'R'\nto retry");
       x$.danger(793, 432, 195, 48);
       x$.danger(0, 1419, 1500, 81);
       z$ = x$.player;
@@ -24,31 +25,15 @@
       x$.gray(664, 910, Level.One);
       return x$;
     };
-    prototype.movesOnAxis = curry$((function(axis, platform){
-      var otherAxis, x$;
-      otherAxis = (function(){
-        switch (axis) {
-        case 'y':
-          return 'x';
-        case 'x':
-          return 'y';
-        }
-      }());
-      x$ = platform.inside.body;
-      x$.immovable = false;
-      x$.maxVelocity[otherAxis] = 0;
-      x$.maxVelocity[axis] = 150;
+    prototype.canMove = function(platform){
+      platform.inside.body.immovable = false;
       return platform.customUpdate = null;
-    }), true);
+    };
     function Three(){
-      this.movesOnAxis = bind$(this, 'movesOnAxis', prototype);
       Three.superclass.apply(this, arguments);
     }
     return Three;
   }(Level));
-  function bind$(obj, key, target){
-    return function(){ return (target || obj)[key].apply(obj, arguments) };
-  }
   function extend$(sub, sup){
     function fun(){} fun.prototype = (sub.superclass = sup).prototype;
     (sub.prototype = new fun).constructor = sub;
@@ -59,18 +44,5 @@
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];
     return obj;
-  }
-  function curry$(f, bound){
-    var context,
-    _curry = function(args) {
-      return f.length > 1 ? function(){
-        var params = args ? args.concat() : [];
-        context = bound ? context || this : this;
-        return params.push.apply(params, arguments) <
-            f.length && arguments.length ?
-          _curry.call(context, params) : f.apply(context, params);
-      } : f;
-    };
-    return _curry();
   }
 }).call(this);

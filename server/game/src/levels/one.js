@@ -14,6 +14,9 @@
       y$.black(547, 461, 351, 112);
       y$.black(547, 367, 168, 96);
       y$.black(268, 190, 199, 68);
+      x$.text(133, 75, "Arrows to move, \n Up to jump");
+      x$.text(586, 84, "Tab or Ctrl\nto 'swap'");
+      x$.text(524, 580, "You may\nwall jump");
       z$ = x$.player;
       z$.black(64, 117);
       z$.white(1128, 595);

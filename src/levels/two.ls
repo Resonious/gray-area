@@ -19,7 +19,7 @@ class @Level.Two extends Level
         ..white   0 527 746  55
         ..white 375 363  99 116
 
-        ..black 744 883 328 231 @elevator
+        ..black 744 644 328 231 @elevator
 
       ..danger 0 1919 2000 81
 
@@ -32,10 +32,10 @@ class @Level.Two extends Level
       # ..on-death Level.One
 
   elevator: (platform) ~>
-    @game.add.tween platform
-      ..to {y: 117}, 10000, Phaser.Easing.Linear.None
-      ..to {y: 883}, 10000, Phaser.Easing.Linear.None
-      ..loop!
-      ..start!
+    const body = platform.body
+    if body.y <= 107
+      body.velocity.y = 150
+    else if body.y >= 644
+      body.velocity.y = -150
 
-    platform.custom-update = null
+    # platform.custom-update = null

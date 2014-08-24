@@ -70,7 +70,7 @@
         z$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
         this.dangers = add.group();
-        this.loadLevel(Level.Three);
+        this.loadLevel(Level.One);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
@@ -188,7 +188,7 @@
         x$.start();
       } else {
         if (player.current) {
-          this.switchPlayers();
+          this.switchTimeout = setTimeout(bind$(this, 'switchPlayers'), 600);
         }
       }
       return false;
@@ -213,6 +213,9 @@
     prototype.playerColors = ['black', 'white'];
     prototype.switchPlayers = function(){
       var otherColor, target, x$, this$ = this;
+      if (this.switchTimeout) {
+        clearTimeout(this.switchTimeout);
+      }
       otherColor = head(filter(function(it){
         return it !== this$.currentColor;
       }, this.playerColors));

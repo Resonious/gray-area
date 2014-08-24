@@ -89,7 +89,7 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.Three
+      @load-level Level.One
 
   load-level: (level) !->
     if @current-level
@@ -186,7 +186,7 @@ class @GameCore
         ..on-complete.add-once (@fade-to-level gray.next-level), this
         ..start!
     else
-      @switch-players! if player.current
+      @switch-timeout = set-timeout(@~switch-players, 600) if player.current
     false
 
   fade-to-level: (level) ->
@@ -202,6 +202,8 @@ class @GameCore
 
   player-colors: <[black white]>
   switch-players: ~>
+    clear-timeout @switch-timeout if @switch-timeout
+
     const other-color = head filter ~>(it isnt @current-color), @player-colors
     if (@current-player other-color).finished
       @cant-swap-sound.play '' 0 0.5 false

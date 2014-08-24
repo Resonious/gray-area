@@ -25,7 +25,7 @@ level-methods = (context) ->
           context.core.current-player color
             ..x = x
             ..y = y
-            ..restore!
+            ..please-restore = true
         else
           context.game.add[color].player x, y
 
@@ -43,6 +43,11 @@ level-methods = (context) ->
 
       black: (...args) -> context.level.platform.of-color \black, ...args
       white: (...args) -> context.level.platform.of-color \white, ...args
+
+    text: (x, y, content) ->
+      context.add new Phaser.Text(
+        context.game, x, y, 
+        content, { font: "45px Arial", fill: '#C0C0C0', align: "center" })
 
     danger: (x, y, w, h) ->
       context.game.add.danger x, y, w, h

@@ -92,7 +92,8 @@
       game.physics.arcade.enable(this);
       this.sound = {
         hitGround: this.game.add.audio('hit-ground-1'),
-        jump: this.game.add.audio('jump')
+        jump: this.game.add.audio('jump'),
+        finish: this.game.add.audio('swap')
       };
       this.anchor.setTo(0.5, 0.5);
       x$ = this.body;
@@ -131,8 +132,11 @@
         this.updateAnimation(axis, delta);
         this.updateMovement(axis, jump, delta);
       }
+      if (this.pleaseRestore) {
+        this.pleaseRestore = false;
+        this.restore();
+      }
     };
-    prototype.die = function(){};
     prototype.finish = function(){
       var animName, animFrame, x$, y$;
       if (this.finished) {
@@ -146,12 +150,17 @@
       x$.play(animName);
       x$.stop();
       x$.frame = animFrame;
+      this.sound.finish.play('', 0, 1, false);
       this.body.gravity.setTo(0, 0);
       y$ = this.game.add.tween(this.body.velocity);
       y$.to({
         x: 0,
         y: 0
       }, 150, Phaser.Easing.Quadratic.InOut, true);
+      y$.onComplete.addOnce(function(){
+        return this.body.enable = false;
+      }, this);
+      y$.start();
     };
     prototype.restore = function(){
       var x$;
@@ -159,6 +168,7 @@
         return;
       }
       this.finished = false;
+      this.body.enable = true;
       this.loadTexture("player-" + this.color);
       x$ = this.doAnimations();
       x$.play('idle');
@@ -271,7 +281,7 @@
           this.body.velocity.x = this.wallSlideHit * this.jumpForce;
           this.targetDirection = this.wallSlideHit;
           this.wallJumpTimer = 0.15;
-          this.sound.jump.play('', 0, 1, false);
+          this.sound.jump.play('', 0, 0.65, false);
         } else if (this.isGrounded() || this.airTimer < this.jumpWhileOffGroundTime) {
           this.body.velocity.y = -this.jumpForce;
           if (this.jumpTimer === 0) {

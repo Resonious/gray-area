@@ -63,7 +63,7 @@
           intersect = Phaser.Rectangle.intersection;
           playerBounds = bodyBounds(player);
           intersection = intersect(playerBounds, bodyBounds(platformInside));
-          if (area(intersection) > area(playerBounds) * 0.8) {
+          if (area(intersection) > area(playerBounds) * 0.95) {
             return player.core.playerDead();
           }
         };

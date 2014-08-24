@@ -72,6 +72,7 @@ class @Player extends Phaser.Sprite
     @sound = {
       hit-ground: @game.add.audio 'hit-ground-1'
       jump: @game.add.audio 'jump'
+      finish: @game.add.audio 'swap'
     }
 
     @anchor.set-to 0.5 0.5
@@ -107,8 +108,9 @@ class @Player extends Phaser.Sprite
       @update-animation axis, delta
       @update-movement  axis, jump, delta
 
-  die: !->
-
+    if @please-restore
+      @please-restore = false
+      @restore!
 
   finish: !->
     return if @finished
@@ -123,14 +125,17 @@ class @Player extends Phaser.Sprite
       ..stop!
       ..frame = anim-frame
 
+    @sound.finish.play '' 0 1 false
     @body.gravity.set-to 0 0
     @game.add.tween(@body.velocity)
       ..to {x: 0, y: 0}, 150, Phaser.Easing.Quadratic.InOut, true
-    # TODO finish sound!
+      ..on-complete.add-once (-> @body.enable = false), this
+      ..start!
 
   restore: !->
     return unless @finished
     @finished = false
+    @body.enable = true
 
     @load-texture "player-#{@color}"
     @do-animations!
@@ -221,7 +226,7 @@ class @Player extends Phaser.Sprite
         @target-direction = @wall-slide-hit
         @wall-jump-timer = 0.15
 
-        @sound.jump.play '' 0 1 false
+        @sound.jump.play '' 0 0.65 false
 
       else if @is-grounded! or @air-timer < @jump-while-off-ground-time
         # NORMAL JUMP!
