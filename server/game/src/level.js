@@ -12,6 +12,9 @@
       game.world.setBounds(0, 0, this.levelWidth, this.levelHeight);
       this.core = core;
       this.init(levelMethods(this));
+      if (!this.nextLevel) {
+        throw "Next level required!";
+      }
     }
     prototype.init = function(){
       throw "plz implement me in subclasses";
@@ -23,11 +26,11 @@
       player: {
         ofColor: function(color, x, y){
           var x$;
-          if (context.core[color + "-player"]) {
-            x$ = context.core[color + "-player"];
+          if (context.core.currentPlayer(color)) {
+            x$ = context.core.currentPlayer(color);
             x$.x = x;
             x$.y = y;
-            x$.revive();
+            x$.restore();
             return x$;
           } else {
             return context.game.add[color].player(x, y);
@@ -67,6 +70,9 @@
           throw "Attempted to add 2 grays!";
         }
         return context.gray = context.add(context.core.createGray(x, y, w, h));
+      },
+      nextLevel: function(level){
+        return context.nextLevel = level;
       }
     };
   };

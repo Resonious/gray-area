@@ -34,6 +34,7 @@
       x$.audio('death', asset('sfx/death.ogg'));
       x$.audio('swap', asset('sfx/swap.ogg'));
       x$.audio('cant-swap', asset('sfx/cant-swap.ogg'));
+      x$.audio('level-complete', asset('sfx/level-complete.ogg'));
       x$.audio('bgm', asset('music/gray.ogg'));
       x$.spritesheet('player-black', asset('gfx/player/black.png'), 84, 84);
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
@@ -42,7 +43,7 @@
     prototype.create = function(){
       customAddFunctions(this.game, this);
       (function(add, physics, world, camera){
-        var x$, this$ = this;
+        var x$, y$, this$ = this;
         x$ = this.bgm = add.audio('bgm');
         x$.play('', 0, 0.5, true);
         this.game.stage.backgroundColor = '#FFFFFF';
@@ -50,28 +51,27 @@
         physics.startSystem(Phaser.Physics.ARCADE);
         this.swapSound = add.audio('swap');
         this.cantSwapSound = add.audio('cant-swap');
+        this.levelCompleteSound = add.audio('level-complete');
         this.arrowKeys = this.game.input.keyboard.createCursorKeys();
         each(function(it){
           return this$.game.input.keyboard.addKey(it).onDown.add(this$.switchPlayers);
         }, [Phaser.Keyboard.TAB, Phaser.Keyboard.CONTROL]);
+        y$ = this.locator = this.game.add.sprite(-100, -100, 'locator');
+        y$.anchor.setTo(0.5, 0.5);
+        this.platforms = add.group();
         this.loadLevel(Level.One);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
-      var x$, y$, z$, this$ = this;
+      var this$ = this;
       if (this.currentLevel) {
-        this.platforms.destroy();
+        this.platforms.removeAll(true);
         this.currentLevel.destroy();
       }
-      if (this.locator) {
-        this.locator.destroy();
-      }
-      x$ = this.platforms = this.game.add.group();
-      x$.z = 1;
-      y$ = this.currentLevel = this.game.add.existing(new level(this.game, this));
-      y$.z = 2;
-      z$ = this.locator = this.game.add.sprite(-100, -100, 'locator');
-      z$.anchor.setTo(0.5, 0.5);
+      this.currentLevel = this.game.add.existing(new level(this.game, this));
+      this.blackPlayer.bringToTop();
+      this.whitePlayer.bringToTop();
+      this.locator.bringToTop();
       each(function(it){
         return it.arrowKeys = this$.getPlayerKeys(it.color);
       })(
@@ -149,6 +149,7 @@
       return x$;
     };
     prototype.finishPlayer = function(player){
+      var x$;
       if (player.finished) {
         return false;
       }
@@ -157,13 +158,23 @@
         return it.finished;
       })(
       [this.blackPlayer, this.whitePlayer])) {
-        throw "GAME NEEDS FINISHING";
+        this.levelCompleteSound.play('', 0, 1, false);
+        x$ = this.game.add.tween(this.currentLevel.gray.scale);
+        x$.to({
+          x: 10,
+          y: 10
+        }, 1000, Phaser.Easing.Quadratic.In, true);
+        x$.onComplete.addOnce(this.fadeToNextLevel, this);
+        x$.start();
       } else {
         if (player.current) {
           this.switchPlayers();
         }
       }
       return false;
+    };
+    prototype.fadeToNextLevel = function(){
+      return this.loadLevel(this.currentLevel.nextLevel);
     };
     prototype.currentPlayer = function(color){
       switch (color || this.currentColor) {

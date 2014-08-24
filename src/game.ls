@@ -28,6 +28,7 @@ class @GameCore
       ..audio 'death' asset 'sfx/death.ogg'
       ..audio 'swap' asset 'sfx/swap.ogg'
       ..audio 'cant-swap' asset 'sfx/cant-swap.ogg'
+      ..audio 'level-complete' asset 'sfx/level-complete.ogg'
 
       ..audio 'bgm' asset 'music/gray.ogg'
 
@@ -67,30 +68,29 @@ class @GameCore
 
       @swap-sound = add.audio 'swap'
       @cant-swap-sound = add.audio 'cant-swap'
+      @level-complete-sound = add.audio 'level-complete'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
 
       each (~> @game.input.keyboard.add-key(it).on-down.add @switch-players),
            [Phaser.Keyboard.TAB, Phaser.Keyboard.CONTROL]
 
+      @locator = @game.add.sprite -100, -100 'locator'
+        ..anchor.set-to 0.5 0.5
+
+      @platforms = add.group!
       @load-level Level.One
 
   load-level: (level) !->
     if @current-level
-      # TODO tween?
-      @platforms.destroy!
+      @platforms.remove-all true
       @current-level.destroy!
-    
-    if @locator
-      @locator.destroy!
 
-    @platforms = @game.add.group!
-      ..z = 1
     @current-level = @game.add.existing new level(@game, this)
-      ..z = 2
 
-    @locator = @game.add.sprite -100 -100 'locator'
-      ..anchor.set-to 0.5 0.5
+    @black-player.bring-to-top!
+    @white-player.bring-to-top!
+    @locator.bring-to-top!
 
     [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
 
@@ -110,8 +110,6 @@ class @GameCore
       ..angle = 180
 
   update: !->
-    # # Protip: do collisions before messing with positions
-
     let collide = PlatformCollision.collide @game.physics.arcade, @current-level.platforms
       collide @black-player if @black-player
       collide @white-player if @white-player
@@ -167,10 +165,17 @@ class @GameCore
     player.finish!
 
     if [@black-player, @white-player] |> all (.finished)
-      throw "GAME NEEDS FINISHING"
+      @level-complete-sound.play '' 0 1 false
+      @game.add.tween(@current-level.gray.scale)
+        ..to { x: 10, y: 10 }, 1000, Phaser.Easing.Quadratic.In, true
+        ..on-complete.add-once @fade-to-next-level, this
+        ..start!
     else
       @switch-players! if player.current
     false
+
+  fade-to-next-level: ->
+    @load-level @current-level.next-level
 
   current-player: (color) ~> switch color or @current-color
     | \black => @black-player

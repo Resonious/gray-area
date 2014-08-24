@@ -14,10 +14,12 @@
       y$.black(801, 572, 339, 111);
       y$.black(547, 461, 351, 112);
       y$.black(547, 367, 168, 96);
+      y$.black(268, 190, 199, 68);
       z$ = x$.player;
       z$.black(64, 117);
       z$.white(1128, 595);
       x$.gray(1115, 255, 128 * 1.5, 128 * 1.5);
+      x$.nextLevel(Level.One);
       return x$;
     };
     function One(){

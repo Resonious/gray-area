@@ -12,6 +12,7 @@ class @Level extends Phaser.Group
 
     @core = core
     @init level-methods this
+    throw "Next level required!" unless @next-level
   
   init: -> throw "plz implement me in subclasses"
 
@@ -19,11 +20,11 @@ level-methods = (context) ->
   context.level = 
     player:
       of-color: (color, x, y) ->
-        if context.core["#{color}-player"]
-          context.core["#{color}-player"]
+        if context.core.current-player color
+          context.core.current-player color
             ..x = x
             ..y = y
-            ..revive!
+            ..restore!
         else
           context.game.add[color].player x, y
 
@@ -44,3 +45,5 @@ level-methods = (context) ->
     gray: (x, y, w, h) ->
       if context.gray then throw "Attempted to add 2 grays!"
       context.gray = context.add context.core.create-gray(x, y, w, h)
+
+    next-level: (level) -> context.next-level = level

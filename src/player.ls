@@ -125,6 +125,14 @@ class @Player extends Phaser.Sprite
       ..to {x: 0, y: 0}, 150, Phaser.Easing.Quadratic.InOut, true
     # TODO finish sound!
 
+  restore: !->
+    return unless @finished
+    @finished = false
+
+    @load-texture "player-#{@color}"
+    @do-animations!
+      ..play 'idle'
+
   update-animation: (axis, delta) !->
     direction = signum @body.velocity.x or 0
     

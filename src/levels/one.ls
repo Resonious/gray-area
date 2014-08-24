@@ -11,9 +11,12 @@ class @Level.One extends Level
         ..black 801 572  339 111
         ..black 547 461  351 112
         ..black 547 367  168  96
+        ..black 268 190  199  68
       
       ..player
         ..black   64 117
         ..white 1128 595
 
       ..gray 1115 255 128*1.5 128*1.5
+
+      ..next-level Level.One

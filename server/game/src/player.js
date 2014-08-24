@@ -152,6 +152,16 @@
         y: 0
       }, 150, Phaser.Easing.Quadratic.InOut, true);
     };
+    prototype.restore = function(){
+      var x$;
+      if (!this.finished) {
+        return;
+      }
+      this.finished = false;
+      this.loadTexture("player-" + this.color);
+      x$ = this.doAnimations();
+      x$.play('idle');
+    };
     prototype.updateAnimation = function(axis, delta){
       var direction, target, absIs, ref$;
       direction = signum(this.body.velocity.x) || 0;
