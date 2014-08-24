@@ -35,13 +35,13 @@ class @GameCore
   create: !->
     custom-add-functions @game
 
-    let (add     = @game.add, 
-         physics = @game.physics, 
+    let (add     = @game.add,
+         physics = @game.physics,
          world   = @game.world,
          camera  = @game.camera)
 
       @bgm = add.audio 'bgm'
-        ..play '' 0 0.5 false
+        ..play '' 0 0.5 true
 
       @game.stage.background-color = '#FFFFFF'
       @game.time.advancedTiming = true
@@ -90,8 +90,8 @@ class @GameCore
     # # Protip: do collisions before messing with positions
 
     let collide = PlatformCollision.collide @game.physics.arcade, @platforms
-      collide @black-player
-      collide @white-player
+      collide @black-player if @black-player
+      collide @white-player if @white-player
 
     let player = @current-player!
       if player
@@ -111,9 +111,8 @@ class @GameCore
     #   platform.edges |> each @game.debug~body
 
   current-player: ~> switch @current-color
-   | \black => @black-player
-   | \white => @white-player
-   | otherwise => throw "why even try"
+    | \black => @black-player
+    | \white => @white-player
 
   player-colors: <[black white]>
   switch-players: ~>

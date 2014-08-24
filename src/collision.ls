@@ -38,9 +38,7 @@ union-excluding = (platform, player) ->
 
   process-inside: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
-    | color is platform.color   => 
-      (player, platform-inside) ->
-        player.should-die = true
+    | color is platform.color   => null
     | otherwise =>
       (player, platform-inside) ->
         const intersect = Phaser.Rectangle.intersection

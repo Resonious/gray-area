@@ -37,7 +37,7 @@
       (function(add, physics, world, camera){
         var x$, y$, z$, z1$, z2$, z3$, z4$, z5$, this$ = this;
         x$ = this.bgm = add.audio('bgm');
-        x$.play('', 0, 0.5, false);
+        x$.play('', 0, 0.5, true);
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
@@ -72,8 +72,12 @@
     };
     prototype.update = function(){
       (function(collide){
-        collide(this.blackPlayer);
-        collide(this.whitePlayer);
+        if (this.blackPlayer) {
+          collide(this.blackPlayer);
+        }
+        if (this.whitePlayer) {
+          collide(this.whitePlayer);
+        }
       }.call(this, PlatformCollision.collide(this.game.physics.arcade, this.platforms)));
       (function(player){
         if (player) {
@@ -98,8 +102,6 @@
         return this.blackPlayer;
       case 'white':
         return this.whitePlayer;
-      default:
-        throw "why even try";
       }
     };
     prototype.playerColors = ['black', 'white'];

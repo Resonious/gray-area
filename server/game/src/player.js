@@ -64,7 +64,7 @@
     prototype.maxSpeed = 200;
     prototype.acceleration = 50;
     prototype.deceleration = 50;
-    prototype.targetDirection = 0;
+    prototype.targetDirection = 1;
     prototype.jumpTimer = 0.0;
     prototype.jumpTimeout = 0.55;
     prototype.jumpForce = 500;

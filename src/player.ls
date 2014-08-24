@@ -40,7 +40,7 @@ class @Player extends Phaser.Sprite
   acceleration: 50
   deceleration: 50
 
-  target-direction: 0
+  target-direction: 1
   jump-timer: 0.0
   jump-timeout: 0.55
   jump-force: 500
@@ -100,6 +100,9 @@ class @Player extends Phaser.Sprite
 
     @update-animation axis, delta
     @update-movement  axis, jump, delta
+
+    # console.log 'huh' if @body.embedded
+    # ^ this is gay
 
   update-animation: (axis, delta) !->
     direction = signum @body.velocity.x or 0
