@@ -1,5 +1,3 @@
-{each, map, filter, lines, keys, values, abs, signum, join} = require 'prelude-ls'
-
 class @Level.One extends Level
   level-width: 1200
   level-height: 706
@@ -19,4 +17,4 @@ class @Level.One extends Level
 
       ..gray 1115 255 128*1.5 128*1.5
 
-      ..next-level Level.One
+      ..next-level Level.Two
