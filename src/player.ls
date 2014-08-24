@@ -62,9 +62,10 @@ class @Player extends Phaser.Sprite
 
   should-die: false
 
-  (game, x, y, color) ->
+  (game, core, x, y, color) ->
     super game, x, y, "player-#color"
 
+    @core = core
     @color = color
     game.physics.arcade.enable this
 
@@ -105,6 +106,9 @@ class @Player extends Phaser.Sprite
     unless @finished
       @update-animation axis, delta
       @update-movement  axis, jump, delta
+
+  die: !->
+
 
   finish: !->
     return if @finished

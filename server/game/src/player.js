@@ -84,9 +84,10 @@
     prototype.current = false;
     prototype.finished = false;
     prototype.shouldDie = false;
-    function Player(game, x, y, color){
+    function Player(game, core, x, y, color){
       var x$, y$;
       Player.superclass.call(this, game, x, y, "player-" + color);
+      this.core = core;
       this.color = color;
       game.physics.arcade.enable(this);
       this.sound = {
@@ -131,6 +132,7 @@
         this.updateMovement(axis, jump, delta);
       }
     };
+    prototype.die = function(){};
     prototype.finish = function(){
       var animName, animFrame, x$, y$;
       if (this.finished) {

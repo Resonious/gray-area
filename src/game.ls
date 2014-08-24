@@ -240,7 +240,7 @@ custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->
     game.add[color] =
       player: (x, y) ->
-        const plr = game.add.existing new Player(game, x, y, color)
+        const plr = game.add.existing new Player(game, core, x, y, color)
         if color is \black then core.black-player = plr
                            else core.white-player = plr
       platform: (x, y, w, h) ->

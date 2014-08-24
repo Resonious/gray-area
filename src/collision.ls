@@ -23,6 +23,8 @@ union-excluding = (platform, player) ->
   rect = unionify(fold) overlaps.pop!, overlaps
   unionify(foldr) rect, overlaps
 
+area = (rect) -> rect.width * rect.height
+
 @PlatformCollision =
   collide: (physics, platforms, player) -->
     throw "Invalid physics #physics" unless physics
@@ -38,7 +40,12 @@ union-excluding = (platform, player) ->
 
   process-inside: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
-    | color is platform.color   => null
+    | color is platform.color   =>
+      (player, platform-inside) ->
+        const intersect = Phaser.Rectangle.intersection
+        const player-bounds = body-bounds player
+        const intersection = player-bounds `intersect` (body-bounds platform-inside)
+        player.core.player-dead! if (area intersection) > (area player-bounds) / 2
     | otherwise =>
       (player, platform-inside) ->
         const intersect = Phaser.Rectangle.intersection

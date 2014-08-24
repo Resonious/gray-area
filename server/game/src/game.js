@@ -267,7 +267,7 @@
       game.add[color] = {
         player: function(x, y){
           var plr;
-          plr = game.add.existing(new Player(game, x, y, color));
+          plr = game.add.existing(new Player(game, core, x, y, color));
           if (color === 'black') {
             return core.blackPlayer = plr;
           } else {
