@@ -45,7 +45,7 @@ area = (rect) -> rect.width * rect.height
         const intersect = Phaser.Rectangle.intersection
         const player-bounds = body-bounds player
         const intersection = player-bounds `intersect` (body-bounds platform-inside)
-        player.core.player-dead! if (area intersection) > (area player-bounds) / 2
+        player.core.player-dead! if (area intersection) > (area player-bounds) * 0.8
     | otherwise =>
       (player, platform-inside) ->
         const intersect = Phaser.Rectangle.intersection

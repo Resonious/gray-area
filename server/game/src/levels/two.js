@@ -10,21 +10,23 @@
       x$ = level;
       y$ = x$.platform;
       y$.black(0, 367, 745, 986);
-      y$.black(0, 0, 67, 368);
+      y$.black(474, 119, 163, 251);
       y$.black(66, 0, 1164, 121);
       y$.black(1267, 364, 445, 159);
       y$.black(1227, 0, 707, 184);
-      y$.black(1548, 170, 164, 201);
+      y$.black(1824, 182, 110, 704);
+      y$.black(1562, 784, 271, 144);
       y$.white(183, 976, 297, 222);
       y$.white(478, 976, 268, 73);
       y$.white(564, 684, 61, 181);
       y$.white(0, 527, 746, 55);
+      y$.white(375, 363, 99, 116);
       y$.black(744, 883, 328, 231, this.elevator);
       x$.danger(0, 1919, 2000, 81);
       z$ = x$.player;
-      z$.black(150, 200);
+      z$.black(684, 261);
       z$.white(170, 1200);
-      x$.gray(1500, 700, Level.One);
+      x$.gray(1522, 783, Level.Three);
       return x$;
     };
     prototype.elevator = function(platform){

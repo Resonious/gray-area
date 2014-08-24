@@ -61,7 +61,7 @@
     var prototype = extend$((import$(Player, superclass).displayName = 'Player', Player), superclass).prototype, constructor = Player;
     Player.wallSlideFactor = 0.2;
     prototype.arrowKeys = null;
-    prototype.maxSpeed = 200;
+    prototype.maxSpeed = 250;
     prototype.acceleration = 50;
     prototype.deceleration = 50;
     prototype.targetDirection = 1;

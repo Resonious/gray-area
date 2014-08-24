@@ -89,7 +89,7 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.Two
+      @load-level Level.Three
 
   load-level: (level) !->
     if @current-level
@@ -234,7 +234,7 @@ class @GameCore
       ..x = x
       ..y = y
       ..body
-        ..set-size width * 0.9, width * 0.9
+        ..set-size width * 0.9, height * 0.9
 
 custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->

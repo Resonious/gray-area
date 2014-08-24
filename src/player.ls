@@ -36,7 +36,7 @@ class @Player extends Phaser.Sprite
 
   arrow-keys: null
 
-  max-speed: 200
+  max-speed: 250
   acceleration: 50
   deceleration: 50
 

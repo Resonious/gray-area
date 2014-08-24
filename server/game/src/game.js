@@ -70,7 +70,7 @@
         z$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
         this.dangers = add.group();
-        this.loadLevel(Level.Two);
+        this.loadLevel(Level.Three);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
@@ -257,7 +257,7 @@
       x$.x = x;
       x$.y = y;
       y$ = x$.body;
-      y$.setSize(width * 0.9, width * 0.9);
+      y$.setSize(width * 0.9, height * 0.9);
       return x$;
     };
     return GameCore;

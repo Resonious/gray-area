@@ -75,6 +75,9 @@
         level = typeof w === 'number' ? nextLevel : w;
         return context.grays.push(context.add(context.core.createGray(x, y, width, height, level)));
       },
+      background: function(color){
+        return context.color = color === 'black' ? '#000000' : '#FFFFFF';
+      },
       onDeath: (function(it){
         return context.onDeath = it;
       })
