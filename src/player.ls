@@ -57,6 +57,8 @@ class @Player extends Phaser.Sprite
   wall-slide-hit: null
   wall-jump-timer: 0.0
 
+  should-die: false
+
   (game, x, y, color) ->
     super game, x, y, "player-#color"
 
@@ -65,6 +67,8 @@ class @Player extends Phaser.Sprite
 
     @sound = {
       hit-ground: @game.add.audio 'hit-ground-1'
+      jump: @game.add.audio 'jump'
+      death: @game.add.audio 'death'
     }
 
     @anchor.set-to 0.5 0.5
@@ -179,8 +183,11 @@ class @Player extends Phaser.Sprite
         @target-direction = @wall-slide-hit
         @wall-jump-timer = 0.15
 
+        @sound.jump.play '' 0 1 false
+
       else if @is-grounded! or @air-timer < @jump-while-off-ground-time
         @body.velocity.y = -@jump-force
+        @sound.jump.play '' 0 1 false if @jump-timer is 0
         @jump-timer = 0.1
 
       else if @jump-timer isnt 0

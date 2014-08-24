@@ -25,35 +25,42 @@
       x$.image('indicator', asset('gfx/ui/indicator.png'));
       x$.image('locator', asset('gfx/ui/locator.png'));
       x$.audio('hit-ground-1', asset('sfx/hit-ground-1.ogg'));
+      x$.audio('jump', asset('sfx/jump.ogg'));
+      x$.audio('death', asset('sfx/death.ogg'));
+      x$.audio('swap', asset('sfx/swap.ogg'));
+      x$.audio('bgm', asset('music/gray.ogg'));
       x$.spritesheet('player-black', asset('gfx/player/black.png'), 84, 84);
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };
     prototype.create = function(){
       customAddFunctions(this.game);
       (function(add, physics, world, camera){
-        var x$, y$, z$, z1$, z2$, z3$, z4$, this$ = this;
+        var x$, y$, z$, z1$, z2$, z3$, z4$, z5$, this$ = this;
+        x$ = this.bgm = add.audio('bgm');
+        x$.play('', 0, 0.5, false);
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
         world.setBounds(0, 0, 800, 600);
-        x$ = this.platforms = add.group();
-        y$ = x$.add(Platform.create.black(this.game, 135, 500, 516, 74));
-        y$.name = "Upper";
-        z$ = x$.add(Platform.create.black(this.game, 20, 550, 700, 100));
-        z$.name = "Lower";
-        z1$ = this.specialPlat = this.platforms.add(Platform.create.black(this.game, 20, 20, 100, 100));
-        z1$.name = "Special";
+        y$ = this.platforms = add.group();
+        z$ = y$.add(Platform.create.black(this.game, 135, 500, 516, 74));
+        z$.name = "Upper";
+        z1$ = y$.add(Platform.create.black(this.game, 20, 550, 700, 100));
+        z1$.name = "Lower";
+        z2$ = this.specialPlat = this.platforms.add(Platform.create.black(this.game, 20, 20, 100, 100));
+        z2$.name = "Special";
         this.blackPlayer = add.black.player(210, 210);
         this.whitePlayer = add.white.player(416, 150);
         camera.follow(this.blackPlayer);
         this.currentColor = 'black';
-        z2$ = this.locator = add.sprite(0, 0, 'locator');
-        z2$.anchor.setTo(0.5, 0.5);
-        z3$ = this.gui = add.group();
-        z3$.fixedToCamera = true;
-        z4$ = this.indicator = this.gui.create(700, 100, 'indicator');
-        z4$.anchor.setTo(0.5, 0.5);
-        z4$.angle = 180;
+        z3$ = this.locator = add.sprite(0, 0, 'locator');
+        z3$.anchor.setTo(0.5, 0.5);
+        z4$ = this.gui = add.group();
+        z4$.fixedToCamera = true;
+        z5$ = this.indicator = this.gui.create(700, 100, 'indicator');
+        z5$.anchor.setTo(0.5, 0.5);
+        z5$.angle = 180;
+        this.swapSound = add.audio('swap');
         this.arrowKeys = this.game.input.keyboard.createCursorKeys();
         each(function(it){
           return it.arrowKeys = this$.getPlayerKeys(it.color);
@@ -103,9 +110,10 @@
       }, this.playerColors));
       this.game.camera.follow(this.currentPlayer());
       target = this.currentColor === 'black' ? 180 : 0;
-      return this.game.add.tween(this.indicator).to({
+      this.game.add.tween(this.indicator).to({
         angle: target
       }, 1000, Phaser.Easing.Quadratic.InOut, true);
+      return this.swapSound.play('', 0, 1, false);
     };
     prototype.getPlayerKeys = function(color){
       var this$ = this;

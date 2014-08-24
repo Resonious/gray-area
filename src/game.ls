@@ -20,6 +20,11 @@ class @GameCore
       ..image 'locator' asset 'gfx/ui/locator.png'
 
       ..audio 'hit-ground-1' asset 'sfx/hit-ground-1.ogg'
+      ..audio 'jump' asset 'sfx/jump.ogg'
+      ..audio 'death' asset 'sfx/death.ogg'
+      ..audio 'swap' asset 'sfx/swap.ogg'
+
+      ..audio 'bgm' asset 'music/gray.ogg'
 
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
@@ -34,6 +39,9 @@ class @GameCore
          physics = @game.physics, 
          world   = @game.world,
          camera  = @game.camera)
+
+      @bgm = add.audio 'bgm'
+        ..play '' 0 0.5 false
 
       @game.stage.background-color = '#FFFFFF'
       @game.time.advancedTiming = true
@@ -66,6 +74,8 @@ class @GameCore
       @indicator = @gui.create 700 100 'indicator'
         ..anchor.set-to 0.5 0.5
         ..angle = 180
+
+      @swap-sound = add.audio 'swap'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
       [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
@@ -113,6 +123,8 @@ class @GameCore
     const target = if @current-color is \black then 180 else 0
     @game.add.tween(@indicator).to(
       {angle: target}, 1000, Phaser.Easing.Quadratic.InOut, true)
+
+    @swap-sound.play '' 0 1 false
 
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null

@@ -81,13 +81,16 @@
     prototype.wallSlideX = null;
     prototype.wallSlideHit = null;
     prototype.wallJumpTimer = 0.0;
+    prototype.shouldDie = false;
     function Player(game, x, y, color){
       var x$, y$;
       Player.superclass.call(this, game, x, y, "player-" + color);
       this.color = color;
       game.physics.arcade.enable(this);
       this.sound = {
-        hitGround: this.game.add.audio('hit-ground-1')
+        hitGround: this.game.add.audio('hit-ground-1'),
+        jump: this.game.add.audio('jump'),
+        death: this.game.add.audio('death')
       };
       this.anchor.setTo(0.5, 0.5);
       x$ = this.body;
@@ -220,8 +223,12 @@
           this.body.velocity.x = this.wallSlideHit * this.jumpForce;
           this.targetDirection = this.wallSlideHit;
           this.wallJumpTimer = 0.15;
+          this.sound.jump.play('', 0, 1, false);
         } else if (this.isGrounded() || this.airTimer < this.jumpWhileOffGroundTime) {
           this.body.velocity.y = -this.jumpForce;
+          if (this.jumpTimer === 0) {
+            this.sound.jump.play('', 0, 1, false);
+          }
           this.jumpTimer = 0.1;
         } else if (this.jumpTimer !== 0) {
           this.body.velocity.y -= this.jumpForce * this.jumpBoostFactor;

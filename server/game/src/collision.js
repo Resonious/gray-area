@@ -53,7 +53,9 @@
       case !(!color || !platform.color):
         throw "Something went wrong with platform/player color!";
       case color !== platform.color:
-        return null;
+        return function(player, platformInside){
+          return player.shouldDie = true;
+        };
       default:
         return function(player, platformInside){
           var intersect;
