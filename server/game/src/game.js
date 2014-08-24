@@ -22,6 +22,7 @@
       x$.image('black', asset('gfx/tiles/black.png'));
       x$.image('white', asset('gfx/tiles/white.png'));
       x$.image('empty', asset('gfx/tiles/empty.png'));
+      x$.image('gray', asset('gfx/tiles/gray.png'));
       x$.image('indicator', asset('gfx/ui/indicator.png'));
       x$.image('locator', asset('gfx/ui/locator.png'));
       x$.audio('hit-ground-1', asset('sfx/hit-ground-1.ogg'));
@@ -29,6 +30,7 @@
       x$.audio('death', asset('sfx/death.ogg'));
       x$.audio('swap', asset('sfx/swap.ogg'));
       x$.audio('bgm', asset('music/gray.ogg'));
+      x$.script('gray-filter', asset('filters/gray.js'));
       x$.spritesheet('player-black', asset('gfx/player/black.png'), 84, 84);
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };
@@ -47,6 +49,7 @@
         z$.anchor.setTo(0.5, 0.5);
         z$.angle = 180;
         this.swapSound = add.audio('swap');
+        constructor.grayFilter = this.game.add.filter('Gray');
         this.arrowKeys = this.game.input.keyboard.createCursorKeys();
         each(function(it){
           return this$.game.input.keyboard.addKey(it).onDown.add(this$.switchPlayers);
@@ -143,6 +146,20 @@
           return null;
         }
       };
+    };
+    prototype.createGray = function(x, y, width, height){
+      var gray, x$;
+      width == null && (width = 256);
+      height == null && (height = 256);
+      gray = new Phaser.Sprite(this.game, 0, 0, 'gray');
+      this.game.physics.arcade.enable(gray);
+      x$ = gray;
+      x$.anchor.setTo(0.5, 0.5);
+      x$.width = width;
+      x$.height = height;
+      x$.x = x;
+      x$.y = y;
+      return x$;
     };
     return GameCore;
   }());

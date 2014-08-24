@@ -15,6 +15,7 @@ class @GameCore
       ..image 'black' asset 'gfx/tiles/black.png'
       ..image 'white' asset 'gfx/tiles/white.png'
       ..image 'empty' asset 'gfx/tiles/empty.png'
+      ..image 'gray'  asset 'gfx/tiles/gray.png'
 
       ..image 'indicator' asset 'gfx/ui/indicator.png'
       ..image 'locator' asset 'gfx/ui/locator.png'
@@ -25,6 +26,8 @@ class @GameCore
       ..audio 'swap' asset 'sfx/swap.ogg'
 
       ..audio 'bgm' asset 'music/gray.ogg'
+
+      ..script 'gray-filter' asset 'filters/gray.js'
 
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
@@ -64,6 +67,7 @@ class @GameCore
         ..angle = 180
 
       @swap-sound = add.audio 'swap'
+      @@gray-filter = @game.add.filter 'Gray'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
 
@@ -144,6 +148,16 @@ class @GameCore
 
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null
+
+  create-gray: (x, y, width = 256, height = 256) ->
+    const gray = new Phaser.Sprite(@game, 0, 0, 'gray')
+    @game.physics.arcade.enable gray
+    gray
+      ..anchor.set-to 0.5 0.5
+      ..width  = width
+      ..height = height
+      ..x = x
+      ..y = y
 
 custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->

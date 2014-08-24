@@ -61,6 +61,12 @@
           args = slice$.call(arguments);
           return (ref$ = context.level.platform).ofColor.apply(ref$, ['white'].concat(slice$.call(args)));
         }
+      },
+      gray: function(x, y, w, h){
+        if (context.gray) {
+          throw "Attempted to add 2 grays!";
+        }
+        return context.gray = context.add(context.core.createGray(x, y, w, h));
       }
     };
   };
