@@ -28,11 +28,11 @@ union-excluding = (platform, player) ->
     throw "Invalid physics #physics" unless physics
     player.overlapping = []
 
-    platforms.each (platform) ->
+    platforms |> each (platform) ->
       physics.collide player, platform.inside, null,
         (PlatformCollision.process-inside player.color, platform)
 
-    platforms.each (platform) ->
+    platforms |> each (platform) ->
       physics.collide player, platform.edges, null,
         (PlatformCollision.process-edge player.color, platform)
 
@@ -56,7 +56,7 @@ union-excluding = (platform, player) ->
         const dimen = platform-edge.relative-dimension
         const check-rect = union-excluding platform, player
 
-        if check-rect[dimen] < player.body[dimen]
+        if check-rect[dimen] < player.body[dimen] - 2
           return true
         else # FIXME this bit is a little finnickey sometimes
           not Phaser.Rectangle.intersects (body-bounds platform-edge), check-rect

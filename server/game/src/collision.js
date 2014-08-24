@@ -41,12 +41,14 @@
         throw "Invalid physics " + physics;
       }
       player.overlapping = [];
-      platforms.each(function(platform){
+      each(function(platform){
         return physics.collide(player, platform.inside, null, PlatformCollision.processInside(player.color, platform));
-      });
-      return platforms.each(function(platform){
+      })(
+      platforms);
+      return each(function(platform){
         return physics.collide(player, platform.edges, null, PlatformCollision.processEdge(player.color, platform));
-      });
+      })(
+      platforms);
     }),
     processInside: function(color, platform){
       switch (false) {
@@ -77,7 +79,7 @@
           var dimen, checkRect;
           dimen = platformEdge.relativeDimension;
           checkRect = unionExcluding(platform, player);
-          if (checkRect[dimen] < player.body[dimen]) {
+          if (checkRect[dimen] < player.body[dimen] - 2) {
             return true;
           } else {
             return !Phaser.Rectangle.intersects(bodyBounds(platformEdge), checkRect);

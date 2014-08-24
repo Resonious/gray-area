@@ -48,26 +48,14 @@ class @GameCore
 
       physics.start-system Phaser.Physics.ARCADE
 
-      # CHANGE THIS WHEN MAKE MAPS AAAHAHAAAAAAAAAH
-      world.set-bounds 0 0 800 600
+      # @platforms = add.group!
+      #   ..add Platform.create.black @game, 135 500 516 74
+      #     ..name = "Upper"
+      #   ..add Platform.create.black @game, 20  550 700 100
+      #     ..name = "Lower"
 
-      @platforms = add.group!
-        ..add Platform.create.black @game, 135 500 516 74
-          ..name = "Upper"
-        ..add Platform.create.black @game, 20  550 700 100
-          ..name = "Lower"
-
-      @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
-        ..name = "Special"
-
-      add.black.player 210 210
-      add.white.player 416 150
-      # not racist
-      camera.follow @black-player
-      @current-color = \black
-
-      @locator = add.sprite 0 0 'locator'
-        ..anchor.set-to 0.5 0.5
+      # @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
+      #   ..name = "Special"
 
       @gui = add.group!
         ..fixed-to-camera = true
@@ -78,18 +66,37 @@ class @GameCore
       @swap-sound = add.audio 'swap'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
-      [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
 
-      @switch-key = @game.input.keyboard.add-key(Phaser.Keyboard.TAB)
-      @switch-key.on-down.add @switch-players
+      each (~> @game.input.keyboard.add-key(it).on-down.add @switch-players),
+           [Phaser.Keyboard.TAB, Phaser.Keyboard.CONTROL]
 
+      @load-level Level.One
+
+  load-level: (level) !->
+    if @current-level
+      # TODO tween?
+      @platforms.destroy!
+      @current-level.destroy!
+    
+    if @locator
+      @locator.destroy!
+
+    @platforms = @game.add.group!
+
+    @current-level = @game.add.existing new level(@game, this)
+
+    @locator = @game.add.sprite -100 -100 'locator'
+      ..anchor.set-to 0.5 0.5
+
+    [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
+
+    @game.camera.follow @black-player
+    @current-color = \black
 
   update: !->
-    # @player.update @arrow-keys, @game.time.physicsElapsed
-
     # # Protip: do collisions before messing with positions
 
-    let collide = PlatformCollision.collide @game.physics.arcade, @platforms
+    let collide = PlatformCollision.collide @game.physics.arcade, @current-level.platforms
       collide @black-player if @black-player
       collide @white-player if @white-player
 
@@ -99,16 +106,26 @@ class @GameCore
         @locator.y = player.y - player.body.height
 
     # DEBUG PLATFORM SSHITITTT
-    let mouse = @game.input.mouse-pointer
-      if @game.input.mouse-pointer.is-down 
-        @game.physics.arcade.move-to-pointer @special-plat.inside, 200
-      else
-        @special-plat.body.velocity.set-to 0 0
+    # let mouse = @game.input.mouse-pointer
+    #   if @game.input.mouse-pointer.is-down 
+    #     @game.physics.arcade.move-to-pointer @special-plat.inside, 200
+    #   else
+    #     @special-plat.body.velocity.set-to 0 0
 
   render: !->
     'ass'
-    # @platforms.each (platform) ~>
-    #   platform.edges |> each @game.debug~body
+    # @current-level.platforms |> each (platform) ~>
+    #   platform.each @game.debug~body
+
+  debug-log: ->
+    console.log ["#key: #value" for key, value of this]
+    console.log "====== PLATFORMS ========"
+    console.log @current-level.platforms
+    @current-level.platforms |> each (platform) ~>
+      console.log "#{platform.color} #{platform.x}, #{platform.y}"
+    console.log "====== CAMERA ======="
+    console.log "#{@game.camera.x}, #{@game.camera.y}"
+    '=========== done ==========='
 
   current-player: ~> switch @current-color
     | \black => @black-player
@@ -136,4 +153,4 @@ custom-add-functions = (game, core) !->
         if color is \black then core.black-player = plr
                            else core.white-player = plr
       platform: (x, y, w, h) ->
-        game.add.existing new Platform(game, x, y, w, h, color)
+        core.platforms.add new Platform(game, x, y, w, h, color)

@@ -4,11 +4,11 @@
   ref$ = require('prelude-ls'), each = ref$.each, map = ref$.map, filter = ref$.filter, lines = ref$.lines, keys = ref$.keys, values = ref$.values, abs = ref$.abs, signum = ref$.signum, join = ref$.join;
   this.Level.One = One = (function(superclass){
     var prototype = extend$((import$(One, superclass).displayName = 'One', One), superclass).prototype, constructor = One;
-    prototype.init = function(){
+    prototype.levelWidth = 1200;
+    prototype.levelHeight = 706;
+    prototype.init = function(level){
       var x$, y$, z$;
       x$ = level;
-      x$.width(1200);
-      x$.height(706);
       y$ = x$.platform;
       y$.black(0, 258, 1200, 113);
       y$.black(801, 572, 339, 111);
