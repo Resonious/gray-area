@@ -12,9 +12,14 @@
       y$.black(0, 367, 745, 986);
       y$.black(0, 0, 67, 368);
       y$.black(66, 0, 1164, 121);
+      y$.black(1267, 364, 445, 159);
+      y$.black(1227, 0, 707, 184);
+      y$.black(1548, 170, 164, 201);
       y$.white(183, 976, 297, 222);
       y$.white(478, 976, 268, 73);
       y$.white(564, 684, 61, 181);
+      y$.white(0, 527, 746, 55);
+      y$.black(744, 883, 328, 231, this.elevator);
       x$.danger(0, 1919, 2000, 81);
       z$ = x$.player;
       z$.black(150, 200);
@@ -22,11 +27,28 @@
       x$.gray(1500, 700, Level.One);
       return x$;
     };
+    prototype.elevator = function(platform){
+      var x$;
+      x$ = this.game.add.tween(platform);
+      x$.to({
+        y: 117
+      }, 10000, Phaser.Easing.Linear.None);
+      x$.to({
+        y: 883
+      }, 10000, Phaser.Easing.Linear.None);
+      x$.loop();
+      x$.start();
+      return platform.customUpdate = null;
+    };
     function Two(){
+      this.elevator = bind$(this, 'elevator', prototype);
       Two.superclass.apply(this, arguments);
     }
     return Two;
   }(Level));
+  function bind$(obj, key, target){
+    return function(){ return (target || obj)[key].apply(obj, arguments) };
+  }
   function extend$(sub, sup){
     function fun(){} fun.prototype = (sub.superclass = sup).prototype;
     (sub.prototype = new fun).constructor = sub;

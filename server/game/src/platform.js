@@ -79,6 +79,9 @@
         return it.body.velocity = this$.inside.body.velocity;
       })(
       this.edges);
+      if (this.customUpdate) {
+        this.customUpdate(this);
+      }
     };
     prototype.debug = function(game){
       this.each(bind$(game.debug, 'body'));

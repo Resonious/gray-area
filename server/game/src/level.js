@@ -47,10 +47,11 @@
         }
       },
       platform: {
-        ofColor: function(color, x, y, w, h){
+        ofColor: function(color, x, y, w, h, updateFunc){
           var plat;
           plat = context.game.add[color].platform(x, y, w, h);
           context.platforms.push(plat);
+          plat.customUpdate = updateFunc;
           return plat;
         },
         black: function(){

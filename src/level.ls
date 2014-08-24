@@ -34,10 +34,11 @@ level-methods = (context) ->
       white: (...args) -> context.level.player.of-color \white, ...args
 
     platform:
-      of-color: (color, x, y, w, h) ->
+      of-color: (color, x, y, w, h, update-func) ->
         # console.log "Adding #color at #x, #y, #w, #h"
         const plat = context.game.add[color].platform x, y, w, h
         context.platforms.push plat
+        plat.custom-update = update-func
         plat
 
       black: (...args) -> context.level.platform.of-color \black, ...args

@@ -89,7 +89,7 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.One
+      @load-level Level.Two
 
   load-level: (level) !->
     if @current-level
