@@ -12,6 +12,7 @@ class @Level.Three extends Level
         ..black 1127 480  84  349
         ..black  625 915 875   91
         ..black 1086 725 414   94 @can-move
+        ..black 1301 499 199   82
 
       ..text 1248 587 "'R'\nto retry"
 
@@ -22,7 +23,7 @@ class @Level.Three extends Level
         ..black 376 199
         ..white 534 461
 
-      ..gray 664 910 Level.One
+      ..gray 664 910 185 185 Level.One
 
   can-move: (platform) ->
     platform.inside.body.immovable = false

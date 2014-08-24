@@ -19,7 +19,8 @@ class @Level.Two extends Level
         ..white   0 527 746  55
         ..white 375 363  99 116
 
-        ..black 744 644 328 231 @elevator
+        ..black  744 644 328 231 @elevator \y 107  644 150
+        ..black 1622 800 365 223 @elevator \x 650 1622 170
 
       ..danger 0 1919 2000 81
 
@@ -31,11 +32,11 @@ class @Level.Two extends Level
 
       # ..on-death Level.One
 
-  elevator: (platform) ~>
+  elevator: (axis, min, max, speed, platform) ~~>
     const body = platform.body
-    if body.y <= 107
-      body.velocity.y = 150
-    else if body.y >= 644
-      body.velocity.y = -150
+    if body[axis] <= min
+      body.velocity[axis] = speed
+    else if body[axis] >= max
+      body.velocity[axis] = -speed
 
     # platform.custom-update = null

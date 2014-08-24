@@ -21,7 +21,8 @@
       y$.white(564, 684, 61, 181);
       y$.white(0, 527, 746, 55);
       y$.white(375, 363, 99, 116);
-      y$.black(744, 644, 328, 231, this.elevator);
+      y$.black(744, 644, 328, 231, this.elevator('y', 107, 644, 150));
+      y$.black(1622, 800, 365, 223, this.elevator('x', 650, 1622, 170));
       x$.danger(0, 1919, 2000, 81);
       z$ = x$.player;
       z$.black(684, 261);
@@ -29,15 +30,15 @@
       x$.gray(1522, 783, Level.Three);
       return x$;
     };
-    prototype.elevator = function(platform){
+    prototype.elevator = curry$((function(axis, min, max, speed, platform){
       var body;
       body = platform.body;
-      if (body.y <= 107) {
-        return body.velocity.y = 150;
-      } else if (body.y >= 644) {
-        return body.velocity.y = -150;
+      if (body[axis] <= min) {
+        return body.velocity[axis] = speed;
+      } else if (body[axis] >= max) {
+        return body.velocity[axis] = -speed;
       }
-    };
+    }), true);
     function Two(){
       this.elevator = bind$(this, 'elevator', prototype);
       Two.superclass.apply(this, arguments);
@@ -57,5 +58,18 @@
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];
     return obj;
+  }
+  function curry$(f, bound){
+    var context,
+    _curry = function(args) {
+      return f.length > 1 ? function(){
+        var params = args ? args.concat() : [];
+        context = bound ? context || this : this;
+        return params.push.apply(params, arguments) <
+            f.length && arguments.length ?
+          _curry.call(context, params) : f.apply(context, params);
+      } : f;
+    };
+    return _curry();
   }
 }).call(this);
