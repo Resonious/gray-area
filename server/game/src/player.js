@@ -72,6 +72,7 @@
     prototype.jumpWhileOffGroundTime = 0.1;
     prototype.airTimer = 0.0;
     prototype.jumped = false;
+    prototype.wasGrounded = false;
     prototype.gravity = {
       x: 0,
       y: 2000
@@ -85,6 +86,9 @@
       Player.superclass.call(this, game, x, y, "player-" + color);
       this.color = color;
       game.physics.arcade.enable(this);
+      this.sound = {
+        hitGround: this.game.add.audio('hit-ground-1')
+      };
       this.anchor.setTo(0.5, 0.5);
       x$ = this.body;
       x$.bounce.y = 0.1;
@@ -199,9 +203,16 @@
         this.wallSlideX || (this.wallSlideX = null);
       }
       if (this.isGrounded()) {
+        if (!this.wasGrounded) {
+          this.sound.hitGround.play('', 0, 1, false);
+          this.wasGrounded = true;
+        }
         this.airTimer = 0;
       } else {
         this.airTimer += delta;
+        if (this.airTimer > this.jumpWhileOffGroundTime) {
+          this.wasGrounded = false;
+        }
       }
       if (jump) {
         if (this.wallSliding && this.airTimer > 0.15 && !this.jumped) {

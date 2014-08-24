@@ -24,6 +24,7 @@
       x$.image('empty', asset('gfx/tiles/empty.png'));
       x$.image('indicator', asset('gfx/ui/indicator.png'));
       x$.image('locator', asset('gfx/ui/locator.png'));
+      x$.audio('hit-ground-1', asset('sfx/hit-ground-1.ogg'));
       x$.spritesheet('player-black', asset('gfx/player/black.png'), 84, 84);
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };

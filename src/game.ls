@@ -19,6 +19,8 @@ class @GameCore
       ..image 'indicator' asset 'gfx/ui/indicator.png'
       ..image 'locator' asset 'gfx/ui/locator.png'
 
+      ..audio 'hit-ground-1' asset 'sfx/hit-ground-1.ogg'
+
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
       # ..spritesheet 'player' (asset 'img/player/player.png'), 32 48

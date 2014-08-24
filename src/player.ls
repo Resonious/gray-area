@@ -49,6 +49,8 @@ class @Player extends Phaser.Sprite
   air-timer: 0.0
   jumped: false
 
+  was-grounded: false
+
   gravity: { x: 0, y: 2000 }
   wall-sliding: false
   wall-slide-x: null
@@ -60,6 +62,10 @@ class @Player extends Phaser.Sprite
 
     @color = color
     game.physics.arcade.enable this
+
+    @sound = {
+      hit-ground: @game.add.audio 'hit-ground-1'
+    }
 
     @anchor.set-to 0.5 0.5
     @body
@@ -156,9 +162,13 @@ class @Player extends Phaser.Sprite
       @wall-slide-x or= null
 
     if @is-grounded!
+      unless @was-grounded
+        @sound.hit-ground.play '' 0 1 false
+        @was-grounded = true
       @air-timer = 0
     else
       @air-timer += delta
+      @was-grounded = false if @air-timer > @jump-while-off-ground-time
 
     # ========== JUMPING ===========
     if jump
