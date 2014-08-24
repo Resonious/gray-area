@@ -165,6 +165,8 @@ class @Player extends Phaser.Sprite
       if @wall-sliding and @air-timer > 0.15 and not @jumped
         @body.velocity.y = -@jump-force * 1.5
         @body.velocity.x = @wall-slide-hit * @jump-force
+
+        @target-direction = @wall-slide-hit
         @wall-jump-timer = 0.15
 
       else if @is-grounded! or @air-timer < @jump-while-off-ground-time

@@ -207,6 +207,7 @@
         if (this.wallSliding && this.airTimer > 0.15 && !this.jumped) {
           this.body.velocity.y = -this.jumpForce * 1.5;
           this.body.velocity.x = this.wallSlideHit * this.jumpForce;
+          this.targetDirection = this.wallSlideHit;
           this.wallJumpTimer = 0.15;
         } else if (this.isGrounded() || this.airTimer < this.jumpWhileOffGroundTime) {
           this.body.velocity.y = -this.jumpForce;
