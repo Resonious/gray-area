@@ -33,7 +33,7 @@
       x$.spritesheet('player-white', asset('gfx/player/white.png'), 84, 84);
     };
     prototype.create = function(){
-      customAddFunctions(this.game);
+      customAddFunctions(this.game, this);
       (function(add, physics, world, camera){
         var x$, y$, z$, z1$, z2$, z3$, z4$, z5$, this$ = this;
         x$ = this.bgm = add.audio('bgm');
@@ -49,8 +49,8 @@
         z1$.name = "Lower";
         z2$ = this.specialPlat = this.platforms.add(Platform.create.black(this.game, 20, 20, 100, 100));
         z2$.name = "Special";
-        this.blackPlayer = add.black.player(210, 210);
-        this.whitePlayer = add.white.player(416, 150);
+        add.black.player(210, 210);
+        add.white.player(416, 150);
         camera.follow(this.blackPlayer);
         this.currentColor = 'black';
         z3$ = this.locator = add.sprite(0, 0, 'locator');
@@ -129,11 +129,17 @@
     };
     return GameCore;
   }());
-  customAddFunctions = function(game){
+  customAddFunctions = function(game, core){
     each(function(color){
       return game.add[color] = {
         player: function(x, y){
-          return game.add.existing(new Player(game, x, y, color));
+          var plr;
+          plr = game.add.existing(new Player(game, x, y, color));
+          if (color === 'black') {
+            return core.blackPlayer = plr;
+          } else {
+            return core.whitePlayer = plr;
+          }
         },
         platform: function(x, y, w, h){
           return game.add.existing(new Platform(game, x, y, w, h, color));

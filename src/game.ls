@@ -33,7 +33,7 @@ class @GameCore
       # ..image 'ground' asset 'img/ground.png'
 
   create: !->
-    custom-add-functions @game
+    custom-add-functions @game, this
 
     let (add     = @game.add,
          physics = @game.physics,
@@ -60,8 +60,8 @@ class @GameCore
       @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
         ..name = "Special"
 
-      @black-player = add.black.player 210 210
-      @white-player = add.white.player 416 150
+      add.black.player 210 210
+      add.white.player 416 150
       # not racist
       camera.follow @black-player
       @current-color = \black
@@ -128,8 +128,12 @@ class @GameCore
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null
 
-custom-add-functions = (game) !->
+custom-add-functions = (game, core) !->
   <[black white]> |> each (color) ->
     game.add[color] =
-      player: (x, y) -> game.add.existing new Player(game, x, y, color)
-      platform: (x, y, w, h) -> game.add.existing new Platform(game, x, y, w, h, color)
+      player: (x, y) ->
+        const plr = game.add.existing new Player(game, x, y, color)
+        if color is \black then core.black-player = plr
+                           else core.white-player = plr
+      platform: (x, y, w, h) ->
+        game.add.existing new Platform(game, x, y, w, h, color)
