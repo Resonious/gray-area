@@ -81,13 +81,15 @@ class @Player extends Phaser.Sprite
       ..gravity.y = 2000
       ..collide-world-bounds = true
       ..set-size 22 57
+    @do-animations!
+      ..play 'idle'
+
+  do-animations: ->
     @animations
       ..add 'idle'  [0] 0 true
       ..add 'walk'  [0, 1, 2, 1]  13 true
       ..add 'slide' [3] 0 true
       ..add 'jump'  [4] 0 true
-
-      ..play 'idle'
 
   update: !->
     delta = @game.time.physics-elapsed
@@ -108,8 +110,16 @@ class @Player extends Phaser.Sprite
   finish: !->
     return if @finished
     @finished = true
+
+    const anim-name = @animations.current-anim.name
+    const anim-frame = @animations.current-anim.frame
+
     @load-texture 'player-gray'
-    @animations.stop!
+    @do-animations!
+      ..play anim-name
+      ..stop!
+      ..frame = anim-frame
+
     @body.gravity.set-to 0 0
     @game.add.tween(@body.velocity)
       ..to {x: 0, y: 0}, 150, Phaser.Easing.Quadratic.InOut, true

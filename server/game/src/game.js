@@ -42,17 +42,12 @@
     prototype.create = function(){
       customAddFunctions(this.game, this);
       (function(add, physics, world, camera){
-        var x$, y$, z$, this$ = this;
+        var x$, this$ = this;
         x$ = this.bgm = add.audio('bgm');
         x$.play('', 0, 0.5, true);
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
-        y$ = this.gui = add.group();
-        y$.fixedToCamera = true;
-        z$ = this.indicator = this.gui.create(700, 100, 'indicator');
-        z$.anchor.setTo(0.5, 0.5);
-        z$.angle = 180;
         this.swapSound = add.audio('swap');
         this.cantSwapSound = add.audio('cant-swap');
         this.arrowKeys = this.game.input.keyboard.createCursorKeys();
@@ -63,7 +58,7 @@
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
-      var x$, this$ = this;
+      var x$, y$, z$, this$ = this;
       if (this.currentLevel) {
         this.platforms.destroy();
         this.currentLevel.destroy();
@@ -71,10 +66,12 @@
       if (this.locator) {
         this.locator.destroy();
       }
-      this.platforms = this.game.add.group();
-      this.currentLevel = this.game.add.existing(new level(this.game, this));
-      x$ = this.locator = this.game.add.sprite(-100, -100, 'locator');
-      x$.anchor.setTo(0.5, 0.5);
+      x$ = this.platforms = this.game.add.group();
+      x$.z = 1;
+      y$ = this.currentLevel = this.game.add.existing(new level(this.game, this));
+      y$.z = 2;
+      z$ = this.locator = this.game.add.sprite(-100, -100, 'locator');
+      z$.anchor.setTo(0.5, 0.5);
       each(function(it){
         return it.arrowKeys = this$.getPlayerKeys(it.color);
       })(
@@ -82,6 +79,18 @@
       this.currentColor = 'black';
       this.blackPlayer.current = true;
       this.whitePlayer.current = false;
+      this.doGui();
+    };
+    prototype.doGui = function(){
+      var x$, y$;
+      if (this.gui) {
+        this.gui.destroy();
+      }
+      x$ = this.gui = this.game.add.group();
+      x$.fixedToCamera = true;
+      y$ = this.indicator = this.gui.create(700, 100, 'indicator');
+      y$.anchor.setTo(0.5, 0.5);
+      y$.angle = 180;
     };
     prototype.update = function(){
       var this$ = this;

@@ -101,13 +101,18 @@
       x$.gravity.y = 2000;
       x$.collideWorldBounds = true;
       x$.setSize(22, 57);
-      y$ = this.animations;
-      y$.add('idle', [0], 0, true);
-      y$.add('walk', [0, 1, 2, 1], 13, true);
-      y$.add('slide', [3], 0, true);
-      y$.add('jump', [4], 0, true);
+      y$ = this.doAnimations();
       y$.play('idle');
     }
+    prototype.doAnimations = function(){
+      var x$;
+      x$ = this.animations;
+      x$.add('idle', [0], 0, true);
+      x$.add('walk', [0, 1, 2, 1], 13, true);
+      x$.add('slide', [3], 0, true);
+      x$.add('jump', [4], 0, true);
+      return x$;
+    };
     prototype.update = function(){
       var delta, keys, axis, jump;
       delta = this.game.time.physicsElapsed;
@@ -128,16 +133,21 @@
       }
     };
     prototype.finish = function(){
-      var x$;
+      var animName, animFrame, x$, y$;
       if (this.finished) {
         return;
       }
       this.finished = true;
+      animName = this.animations.currentAnim.name;
+      animFrame = this.animations.currentAnim.frame;
       this.loadTexture('player-gray');
-      this.animations.stop();
+      x$ = this.doAnimations();
+      x$.play(animName);
+      x$.stop();
+      x$.frame = animFrame;
       this.body.gravity.setTo(0, 0);
-      x$ = this.game.add.tween(this.body.velocity);
-      x$.to({
+      y$ = this.game.add.tween(this.body.velocity);
+      y$.to({
         x: 0,
         y: 0
       }, 150, Phaser.Easing.Quadratic.InOut, true);

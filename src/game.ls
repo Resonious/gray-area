@@ -65,12 +65,6 @@ class @GameCore
       # @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
       #   ..name = "Special"
 
-      @gui = add.group!
-        ..fixed-to-camera = true
-      @indicator = @gui.create 700 100 'indicator'
-        ..anchor.set-to 0.5 0.5
-        ..angle = 180
-
       @swap-sound = add.audio 'swap'
       @cant-swap-sound = add.audio 'cant-swap'
 
@@ -91,8 +85,9 @@ class @GameCore
       @locator.destroy!
 
     @platforms = @game.add.group!
-
+      ..z = 1
     @current-level = @game.add.existing new level(@game, this)
+      ..z = 2
 
     @locator = @game.add.sprite -100 -100 'locator'
       ..anchor.set-to 0.5 0.5
@@ -103,6 +98,16 @@ class @GameCore
     @current-color = \black
     @black-player.current = true
     @white-player.current = false
+
+    @do-gui!
+
+  do-gui: !->
+    @gui.destroy! if @gui
+    @gui = @game.add.group!
+      ..fixed-to-camera = true
+    @indicator = @gui.create 700 100 'indicator'
+      ..anchor.set-to 0.5 0.5
+      ..angle = 180
 
   update: !->
     # # Protip: do collisions before messing with positions
