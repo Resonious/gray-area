@@ -42,6 +42,9 @@ level-methods = (context) ->
       black: (...args) -> context.level.platform.of-color \black, ...args
       white: (...args) -> context.level.platform.of-color \white, ...args
 
+    danger: (x, y, w, h) ->
+      context.game.add.danger x, y, w, h
+
     gray: (x, y, w, h) ->
       if context.gray then throw "Attempted to add 2 grays!"
       context.gray = context.add context.core.create-gray(x, y, w, h)

@@ -11,6 +11,7 @@
     function GameCore(game){
       this.switchPlayers = bind$(this, 'switchPlayers', prototype);
       this.currentPlayer = bind$(this, 'currentPlayer', prototype);
+      this.playerDead = bind$(this, 'playerDead', prototype);
       this.finishPlayer = bind$(this, 'finishPlayer', prototype);
       this.game = game;
     }
@@ -25,6 +26,7 @@
       x$.image('black-and-white', asset('gfx/tiles/black-and-white-big.png'));
       x$.image('black', asset('gfx/tiles/black.png'));
       x$.image('white', asset('gfx/tiles/white.png'));
+      x$.image('red', asset('gfx/tiles/red.png'));
       x$.image('empty', asset('gfx/tiles/empty.png'));
       x$.image('gray', asset('gfx/tiles/gray.png'));
       x$.image('indicator', asset('gfx/ui/indicator.png'));
@@ -59,12 +61,14 @@
         y$ = this.locator = this.game.add.sprite(-100, -100, 'locator');
         y$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
+        this.dangers = add.group();
         this.loadLevel(Level.One);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
       var this$ = this;
       if (this.currentLevel) {
+        this.dangers.removeAll(true);
         this.platforms.removeAll(true);
         this.currentLevel.destroy();
       }
@@ -102,6 +106,14 @@
           collide(this.whitePlayer);
         }
       }.call(this, PlatformCollision.collide(this.game.physics.arcade, this.currentLevel.platforms)));
+      (function(arcade){
+        if (this.blackPlayer) {
+          arcade.collide(this.blackPlayer, this.dangers, this.playerDead);
+        }
+        if (this.whitePlayer) {
+          arcade.collide(this.whitePlayer, this.dangers, this.playerDead);
+        }
+      }.call(this, this.game.physics.arcade));
       each(function(player){
         return this$.game.physics.arcade.collide(player, this$.currentLevel.gray, null, this$.finishPlayer);
       })(
@@ -176,6 +188,9 @@
     prototype.fadeToNextLevel = function(){
       return this.loadLevel(this.currentLevel.nextLevel);
     };
+    prototype.playerDead = function(){
+      throw "LMAO U DIED";
+    };
     prototype.currentPlayer = function(color){
       switch (color || this.currentColor) {
       case 'black':
@@ -234,7 +249,7 @@
   }());
   customAddFunctions = function(game, core){
     each(function(color){
-      return game.add[color] = {
+      game.add[color] = {
         player: function(x, y){
           var plr;
           plr = game.add.existing(new Player(game, x, y, color));
@@ -247,6 +262,15 @@
         platform: function(x, y, w, h){
           return core.platforms.add(new Platform(game, x, y, w, h, color));
         }
+      };
+      return game.add.danger = function(x, y, w, h){
+        var dang, x$;
+        dang = core.dangers.add(new Phaser.Sprite(game, x, y, 'red'));
+        game.physics.arcade.enable(dang);
+        x$ = dang;
+        x$.width = w;
+        x$.height = h;
+        return x$;
       };
     })(
     ['black', 'white']);

@@ -17,6 +17,7 @@ class @GameCore
 
       ..image 'black' asset 'gfx/tiles/black.png'
       ..image 'white' asset 'gfx/tiles/white.png'
+      ..image 'red'   asset 'gfx/tiles/red.png'
       ..image 'empty' asset 'gfx/tiles/empty.png'
       ..image 'gray'  asset 'gfx/tiles/gray.png'
 
@@ -79,10 +80,12 @@ class @GameCore
         ..anchor.set-to 0.5 0.5
 
       @platforms = add.group!
+      @dangers   = add.group!
       @load-level Level.One
 
   load-level: (level) !->
     if @current-level
+      @dangers.remove-all true
       @platforms.remove-all true
       @current-level.destroy!
 
@@ -113,6 +116,10 @@ class @GameCore
     let collide = PlatformCollision.collide @game.physics.arcade, @current-level.platforms
       collide @black-player if @black-player
       collide @white-player if @white-player
+
+    let arcade = @game.physics.arcade
+      arcade.collide @black-player, @dangers, @player-dead if @black-player
+      arcade.collide @white-player, @dangers, @player-dead if @white-player
 
     [@black-player, @white-player] |> each (player) ~>
       @game.physics.arcade.collide player, @current-level.gray, null, @finish-player
@@ -177,6 +184,9 @@ class @GameCore
   fade-to-next-level: ->
     @load-level @current-level.next-level
 
+  player-dead: ~>
+    throw "LMAO U DIED"
+
   current-player: (color) ~> switch color or @current-color
     | \black => @black-player
     | \white => @white-player
@@ -223,3 +233,10 @@ custom-add-functions = (game, core) !->
                            else core.white-player = plr
       platform: (x, y, w, h) ->
         core.platforms.add new Platform(game, x, y, w, h, color)
+
+    game.add.danger = (x, y, w, h) ->
+      const dang = core.dangers.add new Phaser.Sprite(game, x, y, 'red')
+      game.physics.arcade.enable dang
+      dang
+        ..width = w
+        ..height = h

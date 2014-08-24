@@ -65,6 +65,9 @@
           return (ref$ = context.level.platform).ofColor.apply(ref$, ['white'].concat(slice$.call(args)));
         }
       },
+      danger: function(x, y, w, h){
+        return context.game.add.danger(x, y, w, h);
+      },
       gray: function(x, y, w, h){
         if (context.gray) {
           throw "Attempted to add 2 grays!";
