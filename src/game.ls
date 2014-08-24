@@ -38,7 +38,9 @@ class @GameCore
 
       physics.start-system Phaser.Physics.ARCADE
 
-      @game.world.height = 600
+      # CHANGE THIS WHEN MAKE MAPS AAAHAHAAAAAAAAAH
+      world.set-bounds 0 0 800 600
+
       @platforms = add.group!
         ..add Platform.create.black @game, 135 500 516 74
           ..name = "Upper"
@@ -104,7 +106,7 @@ class @GameCore
   player-colors: <[black white]>
   switch-players: ~>
     @current-color = head filter ~>(it isnt @current-color), @player-colors
-    @game.camera.follow(@["#{@current-color}-player"])
+    @game.camera.follow(@current-player!)
 
     const target = if @current-color is \black then 180 else 0
     @game.add.tween(@indicator).to(

@@ -34,7 +34,7 @@
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.world.height = 600;
+        world.setBounds(0, 0, 800, 600);
         x$ = this.platforms = add.group();
         y$ = x$.add(Platform.create.black(this.game, 135, 500, 516, 74));
         y$.name = "Upper";
@@ -100,7 +100,7 @@
       this.currentColor = head(filter(function(it){
         return it !== this$.currentColor;
       }, this.playerColors));
-      this.game.camera.follow(this[this.currentColor + "-player"]);
+      this.game.camera.follow(this.currentPlayer());
       target = this.currentColor === 'black' ? 180 : 0;
       return this.game.add.tween(this.indicator).to({
         angle: target
