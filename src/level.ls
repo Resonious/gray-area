@@ -2,17 +2,18 @@
 
 class @Level extends Phaser.Group
   platforms: []
+  grays: []
   level-width: 800
   level-height: 500
 
   (game, core) ->
     super game
 
+    @on-death = @constructor
     game.world.set-bounds 0, 0, @level-width, @level-height
 
     @core = core
     @init level-methods this
-    throw "Next level required!" unless @next-level
   
   init: -> throw "plz implement me in subclasses"
 
@@ -45,8 +46,10 @@ level-methods = (context) ->
     danger: (x, y, w, h) ->
       context.game.add.danger x, y, w, h
 
-    gray: (x, y, w, h) ->
-      if context.gray then throw "Attempted to add 2 grays!"
-      context.gray = context.add context.core.create-gray(x, y, w, h)
+    gray: (x, y, w, h, next-level) ->
+      const width = if typeof w is 'number' then w else 256
+      const height = if typeof h is 'number' then h else 256
+      const level = if typeof w is 'number' then next-level else w
+      context.grays.push context.add context.core.create-gray(x, y, width, height, level)
 
-    next-level: (level) -> context.next-level = level
+    on-death: (context.on-death =)

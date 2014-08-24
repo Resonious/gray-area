@@ -91,8 +91,7 @@
       game.physics.arcade.enable(this);
       this.sound = {
         hitGround: this.game.add.audio('hit-ground-1'),
-        jump: this.game.add.audio('jump'),
-        death: this.game.add.audio('death')
+        jump: this.game.add.audio('jump')
       };
       this.anchor.setTo(0.5, 0.5);
       x$ = this.body;

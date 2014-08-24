@@ -17,8 +17,7 @@
       z$ = x$.player;
       z$.black(64, 117);
       z$.white(1128, 595);
-      x$.gray(1115, 255, 128 * 1.5, 128 * 1.5);
-      x$.nextLevel(Level.Two);
+      x$.gray(1115, 255, 128 * 1.5, 128 * 1.5, Level.Two);
       return x$;
     };
     function One(){

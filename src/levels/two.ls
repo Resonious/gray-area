@@ -9,12 +9,16 @@ class @Level.Two extends Level
         ..black   0   0   67 368
         ..black  66   0 1164 121
 
+        ..white 183 976 297 222
+        ..white 478 976 268  73
+        ..white 564 684  61 181
+
       ..danger 0 1919 2000 81
 
       ..player
         ..black 150  200
         ..white 170 1200
 
-      ..gray 1500 700
+      ..gray 1500 700 Level.One
 
-      ..next-level Level.One
+      # ..on-death Level.One

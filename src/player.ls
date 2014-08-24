@@ -71,7 +71,6 @@ class @Player extends Phaser.Sprite
     @sound = {
       hit-ground: @game.add.audio 'hit-ground-1'
       jump: @game.add.audio 'jump'
-      death: @game.add.audio 'death'
     }
 
     @anchor.set-to 0.5 0.5

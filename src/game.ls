@@ -1,4 +1,4 @@
-{each, all, map, filter, first, head, lines, keys, values} = require 'prelude-ls'
+{each, all, map, filter, first, head, lines, keys, values, head} = require 'prelude-ls'
 
 mul = (vec, scalar) -->
   new Phaser.Point(vec.x * scalar, vec.y * scalar)
@@ -30,6 +30,7 @@ class @GameCore
       ..audio 'swap' asset 'sfx/swap.ogg'
       ..audio 'cant-swap' asset 'sfx/cant-swap.ogg'
       ..audio 'level-complete' asset 'sfx/level-complete.ogg'
+      ..audio 'reset' asset '/sfx/reset.ogg'
 
       ..audio 'bgm' asset 'music/gray.ogg'
 
@@ -70,11 +71,18 @@ class @GameCore
       @swap-sound = add.audio 'swap'
       @cant-swap-sound = add.audio 'cant-swap'
       @level-complete-sound = add.audio 'level-complete'
+      @death-sound = add.audio 'death'
+      @reset-sound = add.audio 'reset'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
 
       each (~> @game.input.keyboard.add-key(it).on-down.add @switch-players),
            [Phaser.Keyboard.TAB, Phaser.Keyboard.CONTROL]
+
+      @game.input.keyboard.add-key Phaser.Keyboard.R
+        ..on-down.add ~>
+          @reset-sound.play '' 0 1 false
+          @load-level @current-level.constructor
 
       @locator = @game.add.sprite -100, -100 'locator'
         ..anchor.set-to 0.5 0.5
@@ -122,7 +130,7 @@ class @GameCore
       arcade.collide @white-player, @dangers, @player-dead if @white-player
 
     [@black-player, @white-player] |> each (player) ~>
-      @game.physics.arcade.collide player, @current-level.gray, null, @finish-player
+      @game.physics.arcade.collide player, @current-level.grays, null, @finish-player
 
     let player = @current-player!
       if player
@@ -167,25 +175,26 @@ class @GameCore
       ..x = target.x - @game.camera.width/2
       ..y = target.y - @game.camera.height/2
 
-  finish-player: (player) ~>
+  finish-player: (player, gray) ~>
     return false if player.finished
     player.finish!
 
     if [@black-player, @white-player] |> all (.finished)
       @level-complete-sound.play '' 0 1 false
-      @game.add.tween(@current-level.gray.scale)
+      @game.add.tween(gray.scale)
         ..to { x: 10, y: 10 }, 1000, Phaser.Easing.Quadratic.In, true
-        ..on-complete.add-once @fade-to-next-level, this
+        ..on-complete.add-once (@fade-to-level gray.next-level), this
         ..start!
     else
       @switch-players! if player.current
     false
 
-  fade-to-next-level: ->
-    @load-level @current-level.next-level
+  fade-to-level: (level) ->
+    -> @load-level level or @current-level.on-death
 
   player-dead: ~>
-    throw "LMAO U DIED"
+    @death-sound.play '' 0 1 false
+    @load-level @current-level.on-death
 
   current-player: (color) ~> switch color or @current-color
     | \black => @black-player
@@ -195,7 +204,7 @@ class @GameCore
   switch-players: ~>
     const other-color = head filter ~>(it isnt @current-color), @player-colors
     if (@current-player other-color).finished
-      @cant-swap-sound.play '' 0 1 false
+      @cant-swap-sound.play '' 0 0.5 false
       return
 
     @current-player!.current = false
@@ -212,10 +221,13 @@ class @GameCore
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null
 
-  create-gray: (x, y, width = 256, height = 256) ->
+  create-gray: (x, y, width = 256, height = 256, next-level) ->
+    throw "Next level required!" unless next-level
+
     const gray = new Phaser.Sprite(@game, 0, 0, 'gray')
     @game.physics.arcade.enable gray
     gray
+      ..next-level = next-level
       ..anchor.set-to 0.5 0.5
       ..width  = width
       ..height = height

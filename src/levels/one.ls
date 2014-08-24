@@ -15,6 +15,4 @@ class @Level.One extends Level
         ..black   64 117
         ..white 1128 595
 
-      ..gray 1115 255 128*1.5 128*1.5
-
-      ..next-level Level.Two
+      ..gray 1115 255 128*1.5 128*1.5 Level.Two

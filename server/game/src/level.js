@@ -5,16 +5,15 @@
   this.Level = Level = (function(superclass){
     var prototype = extend$((import$(Level, superclass).displayName = 'Level', Level), superclass).prototype, constructor = Level;
     prototype.platforms = [];
+    prototype.grays = [];
     prototype.levelWidth = 800;
     prototype.levelHeight = 500;
     function Level(game, core){
       Level.superclass.call(this, game);
+      this.onDeath = this.constructor;
       game.world.setBounds(0, 0, this.levelWidth, this.levelHeight);
       this.core = core;
       this.init(levelMethods(this));
-      if (!this.nextLevel) {
-        throw "Next level required!";
-      }
     }
     prototype.init = function(){
       throw "plz implement me in subclasses";
@@ -68,15 +67,16 @@
       danger: function(x, y, w, h){
         return context.game.add.danger(x, y, w, h);
       },
-      gray: function(x, y, w, h){
-        if (context.gray) {
-          throw "Attempted to add 2 grays!";
-        }
-        return context.gray = context.add(context.core.createGray(x, y, w, h));
+      gray: function(x, y, w, h, nextLevel){
+        var width, height, level;
+        width = typeof w === 'number' ? w : 256;
+        height = typeof h === 'number' ? h : 256;
+        level = typeof w === 'number' ? nextLevel : w;
+        return context.grays.push(context.add(context.core.createGray(x, y, width, height, level)));
       },
-      nextLevel: function(level){
-        return context.nextLevel = level;
-      }
+      onDeath: (function(it){
+        return context.onDeath = it;
+      })
     };
   };
   function extend$(sub, sup){
