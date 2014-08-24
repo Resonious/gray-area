@@ -63,7 +63,7 @@ class @Platform extends Phaser.Group
       @body = @inside.body
 
   update: !->
-    @edges |> each ~> (it.body.velocity = @inside.body.velocity)
+    @edges |> each ~> it.body.velocity = @inside.body.velocity
     @custom-update(this) if @custom-update
 
   debug: (game) !->

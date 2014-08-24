@@ -18,12 +18,14 @@
       y$.black(1086, 725, 414, 94, this.canMove);
       y$.black(1301, 499, 199, 82);
       x$.text(1248, 587, "'R'\nto retry");
+      x$.text(402, 192, '>');
+      x$.text(1238, 525, 'v');
       x$.danger(793, 432, 195, 48);
       x$.danger(0, 1419, 1500, 81);
       z$ = x$.player;
       z$.black(376, 199);
       z$.white(534, 461);
-      x$.gray(664, 910, 185, 185, Level.One);
+      x$.gray(664, 910, 185, 185, Level.Four);
       return x$;
     };
     prototype.canMove = function(platform){

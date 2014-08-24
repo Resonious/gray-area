@@ -89,7 +89,7 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.Three
+      @load-level Level.Four
 
   load-level: (level) !->
     if @current-level
@@ -98,6 +98,7 @@ class @GameCore
       @current-level.destroy!
 
     @current-level = @game.add.existing new level(@game, this)
+    @game.stage.background-color = @current-level.background-color or '#FFFFFF'
 
     @black-player.bring-to-top!
     @white-player.bring-to-top!
@@ -193,7 +194,7 @@ class @GameCore
     -> @load-level level or @current-level.on-death
 
   player-dead: ~>
-    @death-sound.play '' 0 1 false
+    @death-sound.play '' 0 0.7 false
     @load-level @current-level.on-death
 
   current-player: (color) ~> switch color or @current-color

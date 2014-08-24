@@ -58,5 +58,5 @@ level-methods = (context) ->
       const level = if typeof w is 'number' then next-level else w
       context.grays.push context.add context.core.create-gray(x, y, width, height, level)
 
-    background: (color) -> context.color = if color is \black then '#000000' else '#FFFFFF'
+    background: (color) -> context.background-color = if color is \black then '#000000' else '#FFFFFF'
     on-death: (context.on-death =)
