@@ -65,10 +65,10 @@
           return (ref$ = context.level.platform).ofColor.apply(ref$, ['white'].concat(slice$.call(args)));
         }
       },
-      text: function(x, y, content){
+      text: function(x, y, content, color){
         return context.add(new Phaser.Text(context.game, x, y, content, {
           font: "45px Arial",
-          fill: '#C0C0C0',
+          fill: color || '#C0C0C0',
           align: "center"
         }));
       },
@@ -83,7 +83,16 @@
         return context.grays.push(context.add(context.core.createGray(x, y, width, height, level)));
       },
       background: function(color){
-        return context.backgroundColor = color === 'black' ? '#000000' : '#FFFFFF';
+        return context.backgroundColor = (function(){
+          switch (color) {
+          case 'black':
+            return '#000000';
+          case 'gray':
+            return '#CCCCCC';
+          default:
+            return '#FFFFFF';
+          }
+        }());
       },
       onDeath: (function(it){
         return context.onDeath = it;

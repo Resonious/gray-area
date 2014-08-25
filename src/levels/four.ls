@@ -20,7 +20,7 @@ class @Level.Four extends Level
         ..white  468  595  814  69
         ..white 1237  662   45  77
 
-      ..text 375 779 ">\nSlowly..."
+      ..text 275 779 ">\nSlowly..."
 
       ..danger 1426 615 74 305
 
@@ -28,7 +28,7 @@ class @Level.Four extends Level
         ..black 602 787
         ..white 367 984
 
-      ..gray 494 520 170 170 Level.One
+      ..gray 494 520 170 170 Level.Five
 
   can-move: (platform) ->
     platform.inside.body.immovable = false

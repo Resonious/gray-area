@@ -21,12 +21,12 @@
       y$.white(1144, 899, 189, 31);
       y$.white(468, 595, 814, 69);
       y$.white(1237, 662, 45, 77);
-      x$.text(375, 779, ">\nSlowly...");
+      x$.text(275, 779, ">\nSlowly...");
       x$.danger(1426, 615, 74, 305);
       z$ = x$.player;
       z$.black(602, 787);
       z$.white(367, 984);
-      x$.gray(494, 520, 170, 170, Level.One);
+      x$.gray(494, 520, 170, 170, Level.Five);
       return x$;
     };
     prototype.canMove = function(platform){

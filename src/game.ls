@@ -10,11 +10,6 @@ class @GameCore
   preload: !->
     asset = (p) -> "game/assets/#p"
     @game.load
-      ..tilemap 'test-map' (asset 'maps/test-map.json'), null, Phaser.Tilemap.TILED_JSON
-      ..image 'test-tiles' asset 'gfx/tiles/black-and-white.png'
-
-      ..image 'black-and-white' asset 'gfx/tiles/black-and-white-big.png'
-
       ..image 'black' asset 'gfx/tiles/black.png'
       ..image 'white' asset 'gfx/tiles/white.png'
       ..image 'red'   asset 'gfx/tiles/red.png'
@@ -23,6 +18,8 @@ class @GameCore
 
       ..image 'indicator' asset 'gfx/ui/indicator.png'
       ..image 'locator' asset 'gfx/ui/locator.png'
+      ..image 'sound' asset 'gfx/ui/sound.png'
+      ..image 'no-sound' asset 'gfx/ui/no-sound.png'
 
       ..audio 'hit-ground-1' asset 'sfx/hit-ground-1.ogg'
       ..audio 'jump' asset 'sfx/jump.ogg'
@@ -34,14 +31,9 @@ class @GameCore
 
       ..audio 'bgm' asset 'music/gray.ogg'
 
-      # ..script 'gray-filter' asset 'filters/gray.js'
-
       ..spritesheet 'player-black' (asset 'gfx/player/black.png'), 84 84
       ..spritesheet 'player-white' (asset 'gfx/player/white.png'), 84 84
       ..spritesheet 'player-gray'  (asset 'gfx/player/gray.png'), 84 84
-      # ..spritesheet 'player' (asset 'img/player/player.png'), 32 48
-      # ..image 'sky' asset 'img/sky.png'
-      # ..image 'ground' asset 'img/ground.png'
 
   create: !->
     custom-add-functions @game, this
@@ -58,15 +50,6 @@ class @GameCore
       @game.time.advancedTiming = true
 
       physics.start-system Phaser.Physics.ARCADE
-
-      # @platforms = add.group!
-      #   ..add Platform.create.black @game, 135 500 516 74
-      #     ..name = "Upper"
-      #   ..add Platform.create.black @game, 20  550 700 100
-      #     ..name = "Lower"
-
-      # @special-plat = @platforms.add Platform.create.black @game, 20 20 100 100
-      #   ..name = "Special"
 
       @swap-sound = add.audio 'swap'
       @cant-swap-sound = add.audio 'cant-swap'
@@ -89,13 +72,15 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.Four
+      @load-level Level.One
 
   load-level: (level) !->
     if @current-level
       @dangers.remove-all true
       @platforms.remove-all true
       @current-level.destroy!
+
+      [@white-player, @black-player] |> each (.body.enable = false)
 
     @current-level = @game.add.existing new level(@game, this)
     @game.stage.background-color = @current-level.background-color or '#FFFFFF'
@@ -104,7 +89,9 @@ class @GameCore
     @white-player.bring-to-top!
     @locator.bring-to-top!
 
-    [@black-player, @white-player] |> each ~> it.arrow-keys = @get-player-keys it.color
+    [@black-player, @white-player] |> each ~>
+      it.arrow-keys = @get-player-keys it.color
+      it.please-enable = true
 
     # @game.camera.follow @black-player
     @current-color = \black
@@ -120,6 +107,9 @@ class @GameCore
     @indicator = @gui.create 700 100 'indicator'
       ..anchor.set-to 0.5 0.5
       ..angle = 180
+
+    @sound-toggle = @gui.add new Phaser.Button @game, 750 18 'sound' @toggle-sound
+    if @game.sound.mute then @sound-toggle.load-texture 'no-sound'
 
   update: !->
     let collide = PlatformCollision.collide @game.physics.arcade, @current-level.platforms
@@ -149,6 +139,7 @@ class @GameCore
 
   render: !->
     'ass'
+    # @game.debug.text "#{@current-player!.x}, #{@current-player!.y}" 100 100 '#CCCCCC'
     # @game.debug.body @current-level.gray
     # @current-level.platforms |> each (platform) ~>
     #   platform.each @game.debug~body
@@ -223,6 +214,14 @@ class @GameCore
 
   get-player-keys: (color) -> 
     ~> if @current-color is color then @arrow-keys else null
+
+  toggle-sound: ~>
+    if @game.sound.mute
+      @sound-toggle.load-texture 'sound'
+      @game.sound.mute = false
+    else
+      @sound-toggle.load-texture 'no-sound'
+      @game.sound.mute = true
 
   create-gray: (x, y, width = 256, height = 256, next-level) ->
     throw "Next level required!" unless next-level

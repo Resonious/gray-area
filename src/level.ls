@@ -44,10 +44,10 @@ level-methods = (context) ->
       black: (...args) -> context.level.platform.of-color \black, ...args
       white: (...args) -> context.level.platform.of-color \white, ...args
 
-    text: (x, y, content) ->
+    text: (x, y, content, color) ->
       context.add new Phaser.Text(
         context.game, x, y, 
-        content, { font: "45px Arial", fill: '#C0C0C0', align: "center" })
+        content, { font: "45px Arial", fill: color or '#C0C0C0', align: "center" })
 
     danger: (x, y, w, h) ->
       context.game.add.danger x, y, w, h
@@ -58,5 +58,9 @@ level-methods = (context) ->
       const level = if typeof w is 'number' then next-level else w
       context.grays.push context.add context.core.create-gray(x, y, width, height, level)
 
-    background: (color) -> context.background-color = if color is \black then '#000000' else '#FFFFFF'
+    background: (color) ->
+      context.background-color = switch color
+        | \black => '#000000'
+        | \gray  => '#CCCCCC'
+        | otherwise => '#FFFFFF'
     on-death: (context.on-death =)

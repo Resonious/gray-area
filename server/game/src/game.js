@@ -9,6 +9,7 @@
     GameCore.displayName = 'GameCore';
     var prototype = GameCore.prototype, constructor = GameCore;
     function GameCore(game){
+      this.toggleSound = bind$(this, 'toggleSound', prototype);
       this.switchPlayers = bind$(this, 'switchPlayers', prototype);
       this.currentPlayer = bind$(this, 'currentPlayer', prototype);
       this.playerDead = bind$(this, 'playerDead', prototype);
@@ -21,9 +22,6 @@
         return "game/assets/" + p;
       };
       x$ = this.game.load;
-      x$.tilemap('test-map', asset('maps/test-map.json'), null, Phaser.Tilemap.TILED_JSON);
-      x$.image('test-tiles', asset('gfx/tiles/black-and-white.png'));
-      x$.image('black-and-white', asset('gfx/tiles/black-and-white-big.png'));
       x$.image('black', asset('gfx/tiles/black.png'));
       x$.image('white', asset('gfx/tiles/white.png'));
       x$.image('red', asset('gfx/tiles/red.png'));
@@ -31,6 +29,8 @@
       x$.image('gray', asset('gfx/tiles/gray.png'));
       x$.image('indicator', asset('gfx/ui/indicator.png'));
       x$.image('locator', asset('gfx/ui/locator.png'));
+      x$.image('sound', asset('gfx/ui/sound.png'));
+      x$.image('no-sound', asset('gfx/ui/no-sound.png'));
       x$.audio('hit-ground-1', asset('sfx/hit-ground-1.ogg'));
       x$.audio('jump', asset('sfx/jump.ogg'));
       x$.audio('death', asset('sfx/death.ogg'));
@@ -70,7 +70,7 @@
         z$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
         this.dangers = add.group();
-        this.loadLevel(Level.Four);
+        this.loadLevel(Level.One);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
@@ -79,6 +79,10 @@
         this.dangers.removeAll(true);
         this.platforms.removeAll(true);
         this.currentLevel.destroy();
+        each(function(it){
+          return it.body.enable = false;
+        })(
+        [this.whitePlayer, this.blackPlayer]);
       }
       this.currentLevel = this.game.add.existing(new level(this.game, this));
       this.game.stage.backgroundColor = this.currentLevel.backgroundColor || '#FFFFFF';
@@ -86,7 +90,8 @@
       this.whitePlayer.bringToTop();
       this.locator.bringToTop();
       each(function(it){
-        return it.arrowKeys = this$.getPlayerKeys(it.color);
+        it.arrowKeys = this$.getPlayerKeys(it.color);
+        return it.pleaseEnable = true;
       })(
       [this.blackPlayer, this.whitePlayer]);
       this.currentColor = 'black';
@@ -104,6 +109,10 @@
       y$ = this.indicator = this.gui.create(700, 100, 'indicator');
       y$.anchor.setTo(0.5, 0.5);
       y$.angle = 180;
+      this.soundToggle = this.gui.add(new Phaser.Button(this.game, 750, 18, 'sound', this.toggleSound));
+      if (this.game.sound.mute) {
+        this.soundToggle.loadTexture('no-sound');
+      }
     };
     prototype.update = function(){
       var this$ = this;
@@ -243,6 +252,15 @@
           return null;
         }
       };
+    };
+    prototype.toggleSound = function(){
+      if (this.game.sound.mute) {
+        this.soundToggle.loadTexture('sound');
+        return this.game.sound.mute = false;
+      } else {
+        this.soundToggle.loadTexture('no-sound');
+        return this.game.sound.mute = true;
+      }
     };
     prototype.createGray = function(x, y, width, height, nextLevel){
       var gray, x$, y$;

@@ -111,6 +111,9 @@ class @Player extends Phaser.Sprite
     if @please-restore
       @please-restore = false
       @restore!
+    if @please-enable
+      @please-enable = false
+      @body.enable = true
 
   finish: !->
     return if @finished

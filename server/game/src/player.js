@@ -136,6 +136,10 @@
         this.pleaseRestore = false;
         this.restore();
       }
+      if (this.pleaseEnable) {
+        this.pleaseEnable = false;
+        this.body.enable = true;
+      }
     };
     prototype.finish = function(){
       var animName, animFrame, x$, y$;

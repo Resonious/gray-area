@@ -64,8 +64,9 @@
           playerBounds = bodyBounds(player);
           intersection = intersect(playerBounds, bodyBounds(platformInside));
           if (area(intersection) > area(playerBounds) * 0.9) {
-            return player.core.playerDead();
+            player.core.playerDead();
           }
+          return true;
         };
       default:
         return function(player, platformInside){
