@@ -30,6 +30,9 @@ class @Platform extends Phaser.Group
             ..y = height
         )
 
+      @platform-width = w
+      @platform-height = h
+
       @inside = scale (@create 0 0 color), w, h
 
       @top    = scale (@create  0, -2,  'empty'), w, 1
@@ -63,7 +66,21 @@ class @Platform extends Phaser.Group
       @body = @inside.body
 
   update: !->
-    @edges |> each ~> it.body.velocity = @inside.body.velocity
+    @edges |> each ~> it.body.velocity = @body.velocity
+
+    if @body.velocity.x or @body.velocity.y
+      @top.x = @body.x - @x
+      @top.y = @body.y - 2 - @y
+
+      @bottom.x = @body.x - @x
+      @bottom.y = @body.y + @platform-height + 1 - @y
+
+      @left.x = @body.x - 2 - @x
+      @left.y = @body.y - @y
+
+      @right.x = @body.x + @platform-width + 1 - @x
+      @right.y = @body.y - @y
+
     @custom-update(this) if @custom-update
 
   debug: (game) !->

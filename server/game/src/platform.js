@@ -34,6 +34,8 @@
       this.y = y;
       (function(w, h, scale){
         var x$, y$, z$, z1$;
+        this.platformWidth = w;
+        this.platformHeight = h;
         this.inside = scale(this.create(0, 0, color), w, h);
         x$ = this.top = scale(this.create(0, -2, 'empty'), w, 1);
         x$.part = 'top';
@@ -76,9 +78,19 @@
     prototype.update = function(){
       var this$ = this;
       each(function(it){
-        return it.body.velocity = this$.inside.body.velocity;
+        return it.body.velocity = this$.body.velocity;
       })(
       this.edges);
+      if (this.body.velocity.x || this.body.velocity.y) {
+        this.top.x = this.body.x - this.x;
+        this.top.y = this.body.y - 2 - this.y;
+        this.bottom.x = this.body.x - this.x;
+        this.bottom.y = this.body.y + this.platformHeight + 1 - this.y;
+        this.left.x = this.body.x - 2 - this.x;
+        this.left.y = this.body.y - this.y;
+        this.right.x = this.body.x + this.platformWidth + 1 - this.x;
+        this.right.y = this.body.y - this.y;
+      }
       if (this.customUpdate) {
         this.customUpdate(this);
       }

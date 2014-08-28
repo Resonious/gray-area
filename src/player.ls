@@ -188,6 +188,7 @@ class @Player extends Phaser.Sprite
       @body.velocity.x = towards-zero-by @deceleration
 
     # ========== WALL SLIDING AND AIR TIMER =============
+    
     const near-wall-slide-x = @body.x > @wall-slide-x - 1 and @body.x < @wall-slide-x + 1
     const hit-right = (@hit \right)
     const hit-left  = (@hit \left)
@@ -209,6 +210,7 @@ class @Player extends Phaser.Sprite
     else
       mul @gravity, 1, @body.gravity
       @wall-slide-x or= null
+
 
     if @is-grounded!
       unless @was-grounded
