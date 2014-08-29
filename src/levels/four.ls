@@ -32,5 +32,5 @@ class @Level.Four extends Level
 
   can-move: (platform) ->
     platform.inside.body.immovable = false
-    platform.inside.body.drag.x = 500
+    platform.inside.body.drag.x = 50
     platform.custom-update = null

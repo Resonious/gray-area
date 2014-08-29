@@ -93,7 +93,6 @@ class @GameCore
       it.arrow-keys = @get-player-keys it.color
       it.please-enable = true
 
-    # @game.camera.follow @black-player
     @current-color = \black
     @black-player.current = true
     @white-player.current = false
