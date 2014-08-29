@@ -42,9 +42,9 @@ area = (rect) -> rect.width * rect.height
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
     | color is platform.color   =>
       (player, platform-inside) ->
-        const intersect = Phaser.Rectangle.intersection
+        const intersect     = Phaser.Rectangle.intersection
         const player-bounds = body-bounds player
-        const intersection = player-bounds `intersect` (body-bounds platform-inside)
+        const intersection  = player-bounds `intersect` (body-bounds platform-inside)
         player.core.player-dead! if (area intersection) > (area player-bounds) * 0.9
         true
     | otherwise =>

@@ -31,6 +31,7 @@
     };
     prototype.canMove = function(platform){
       platform.inside.body.immovable = false;
+      platform.inside.body.drag.x = 500;
       return platform.customUpdate = null;
     };
     function Four(){
