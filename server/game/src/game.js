@@ -70,11 +70,11 @@
         z$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
         this.dangers = add.group();
-        this.loadLevel(Level.One);
+        this.loadLevel(Level.Test);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){
-      var this$ = this;
+      var err, this$ = this;
       if (this.currentLevel) {
         this.dangers.removeAll(true);
         this.platforms.removeAll(true);
@@ -84,7 +84,12 @@
         })(
         [this.whitePlayer, this.blackPlayer]);
       }
-      this.currentLevel = this.game.add.existing(new level(this.game, this));
+      try {
+        this.currentLevel = this.game.add.existing(new level(this.game, this));
+      } catch (e$) {
+        err = e$;
+        throw "Either there were errors in the level, or you forgot to add it to index.html";
+      }
       this.game.stage.backgroundColor = this.currentLevel.backgroundColor || '#FFFFFF';
       this.blackPlayer.bringToTop();
       this.whitePlayer.bringToTop();

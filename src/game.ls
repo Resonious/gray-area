@@ -72,7 +72,7 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.One
+      @load-level Level.Test
 
   load-level: (level) !->
     if @current-level
@@ -82,7 +82,11 @@ class @GameCore
 
       [@white-player, @black-player] |> each (.body.enable = false)
 
-    @current-level = @game.add.existing new level(@game, this)
+    try
+      @current-level = @game.add.existing new level(@game, this)
+    catch err
+      throw "Either there were errors in the level, or you forgot to add it to index.html"
+
     @game.stage.background-color = @current-level.background-color or '#FFFFFF'
 
     @black-player.bring-to-top!
