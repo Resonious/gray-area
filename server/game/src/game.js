@@ -70,7 +70,7 @@
         z$.anchor.setTo(0.5, 0.5);
         this.platforms = add.group();
         this.dangers = add.group();
-        this.loadLevel(Level.Four);
+        this.loadLevel(Level.One);
       }.call(this, this.game.add, this.game.physics, this.game.world, this.game.camera));
     };
     prototype.loadLevel = function(level){

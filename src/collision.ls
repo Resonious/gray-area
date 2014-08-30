@@ -25,10 +25,18 @@ union-excluding = (platform, player) ->
 
 area = (rect) -> rect.width * rect.height
 
-dimension-from = (touching) -> match touching
-  | (-> it.up or it.down)    => \width
-  | (-> it.left or it.right) => \height
-  | otherwise => throw 'bullshit liar there is no collide'
+dimension-from = (body) ->
+  | body.overlap-x <= 0 and body.overlap-y <= 0 =>
+      console.log "Man x is #{body.overlap-x} and y is #{body.overlap-y}"
+  | body.overlap-x > body.overlap-y => \height
+  | body.overlap-x <= body.overlap-y => \width
+  | otherwise => \width
+
+dimension-between = (bounds1, bounds2) ->
+  const intersect = bounds1 `Phaser.Rectangle.intersection` bounds2
+  match intersect
+    | (-> it.width >= it.height) => \width
+    | otherwise => \height
 
 @PlatformCollision =
   collide: (physics, platforms, player) -->
@@ -79,8 +87,8 @@ dimension-from = (touching) -> match touching
             player.core.player-dead
             return true
         else
-          const dimen = dimension-from platform-inside.body.touching
-          if check-rect[dimen] < player.body[dimen] - 2
+          const dimen = (body-bounds platform-inside) `dimension-between` player-bounds
+          if check-rect[dimen] < player.body[dimen] - 0.5
             # If we're not engulfed by the wall, and there's no room to slide into a background,
             # We want to collide.
             return true

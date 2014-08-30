@@ -1,2 +1,2 @@
 cd server
-py -m http.server 8080
+C:\Python34\python -m http.server 8080
