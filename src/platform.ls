@@ -61,7 +61,7 @@ class @Platform extends Phaser.Group
         ..body.check-collision.down = false
 
       @edges = [@top, @bottom, @left, @right]
-      @each (.body.immovable = true)
+      @each (~> it.body.immovable = true; it.platform = this)
 
       @body = @inside.body
 

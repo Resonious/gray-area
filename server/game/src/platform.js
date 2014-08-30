@@ -33,7 +33,7 @@
       this.x = x;
       this.y = y;
       (function(w, h, scale){
-        var x$, y$, z$, z1$;
+        var x$, y$, z$, z1$, this$ = this;
         this.platformWidth = w;
         this.platformHeight = h;
         this.inside = scale(this.create(0, 0, color), w, h);
@@ -63,7 +63,8 @@
         z1$.body.checkCollision.down = false;
         this.edges = [this.top, this.bottom, this.left, this.right];
         this.each(function(it){
-          return it.body.immovable = true;
+          it.body.immovable = true;
+          return it.platform = this$;
         });
         this.body = this.inside.body;
       }.call(this, width || 1, height || 1, function(object, width, height){

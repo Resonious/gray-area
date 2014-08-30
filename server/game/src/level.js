@@ -13,6 +13,7 @@
       this.onDeath = this.constructor;
       game.world.setBounds(0, 0, this.levelWidth, this.levelHeight);
       this.core = core;
+      this.currentLayer = 0;
       this.init(levelMethods(this));
     }
     prototype.init = function(){
@@ -48,11 +49,13 @@
       },
       platform: {
         ofColor: function(color, x, y, w, h, updateFunc){
-          var plat;
+          var plat, x$;
           plat = context.game.add[color].platform(x, y, w, h);
           context.platforms.push(plat);
-          plat.customUpdate = updateFunc;
-          return plat;
+          x$ = plat;
+          x$.customUpdate = updateFunc;
+          x$.layer = context.currentLayer++;
+          return x$;
         },
         black: function(){
           var args, ref$;

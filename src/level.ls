@@ -13,6 +13,7 @@ class @Level extends Phaser.Group
     game.world.set-bounds 0, 0, @level-width, @level-height
 
     @core = core
+    @current-layer = 0
     @init level-methods this
   
   init: -> throw "plz implement me in subclasses"
@@ -38,8 +39,9 @@ level-methods = (context) ->
         # console.log "Adding #color at #x, #y, #w, #h"
         const plat = context.game.add[color].platform x, y, w, h
         context.platforms.push plat
-        plat.custom-update = update-func
         plat
+          ..custom-update = update-func
+          ..layer = context.current-layer++
 
       black: (...args) -> context.level.platform.of-color \black, ...args
       white: (...args) -> context.level.platform.of-color \white, ...args

@@ -44,7 +44,7 @@ class @GameCore
          camera  = @game.camera)
 
       @bgm = add.audio 'bgm'
-        ..play '' 0 0.5 true
+        ..play '' 0 1 true
 
       @game.stage.background-color = '#FFFFFF'
       @game.time.advancedTiming = true

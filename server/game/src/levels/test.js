@@ -7,12 +7,21 @@
       var x$, y$, z$;
       x$ = level;
       y$ = x$.platform;
-      y$.black(0, 200, 800, 300);
+      y$.black(0, 200, 800, 300, this.upper);
+      y$.white(50, 290, 500, 100, this.lower);
       z$ = x$.player;
       z$.black(200, 100);
       z$.white(220, 220);
       x$.gray(0, 0, 50, 50, Level.Test);
       return x$;
+    };
+    prototype.upper = function(platform){
+      platform.inside.z = 10;
+      return platform.customUpdate = null;
+    };
+    prototype.lower = function(platform){
+      platform.inside.z = 5;
+      return platform.customUpdate = null;
     };
     function Test(){
       Test.superclass.apply(this, arguments);

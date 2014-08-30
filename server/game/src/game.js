@@ -48,7 +48,7 @@
       (function(add, physics, world, camera){
         var x$, y$, z$, this$ = this;
         x$ = this.bgm = add.audio('bgm');
-        x$.play('', 0, 0.5, true);
+        x$.play('', 0, 1, true);
         this.game.stage.backgroundColor = '#FFFFFF';
         this.game.time.advancedTiming = true;
         physics.startSystem(Phaser.Physics.ARCADE);
