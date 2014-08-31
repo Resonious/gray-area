@@ -25,6 +25,19 @@ union-excluding = (platform, player) ->
 
 area = (rect) -> rect.width * rect.height
 
+dimension-from = (body) ->
+  | body.overlap-x <= 0 and body.overlap-y <= 0 =>
+      console.log "Man x is #{body.overlap-x} and y is #{body.overlap-y}"
+  | body.overlap-x > body.overlap-y => \height
+  | body.overlap-x <= body.overlap-y => \width
+  | otherwise => \width
+
+dimension-between = (bounds1, bounds2) ->
+  const intersect = bounds1 `Phaser.Rectangle.intersection` bounds2
+  match intersect
+    | (-> it.width >= it.height) => \width
+    | otherwise => \height
+
 @PlatformCollision =
   collide: (physics, platforms, player) -->
     throw "Invalid physics #physics" unless physics
@@ -32,21 +45,19 @@ area = (rect) -> rect.width * rect.height
 
     platforms |> each (platform) ->
       physics.collide player, platform.inside, null,
-        (PlatformCollision.process-inside player.color, platform)
+        (PlatformCollision.process-inside-backdrop player.color, platform)
+
+    platforms |> each (platform) ->
+      physics.collide player, platform.inside, null,
+        (PlatformCollision.process-inside-wall player.color, platform)
 
     platforms |> each (platform) ->
       physics.collide player, platform.edges, null,
         (PlatformCollision.process-edge player.color, platform)
 
-  process-inside: (color, platform) ->
+  process-inside-backdrop: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
-    | color is platform.color   =>
-      (player, platform-inside) ->
-        const intersect = Phaser.Rectangle.intersection
-        const player-bounds = body-bounds player
-        const intersection = player-bounds `intersect` (body-bounds platform-inside)
-        player.core.player-dead! if (area intersection) > (area player-bounds) * 0.9
-        true
+    | color is platform.color   => -> false
     | otherwise =>
       (player, platform-inside) ->
         const intersect = Phaser.Rectangle.intersection
@@ -55,6 +66,38 @@ area = (rect) -> rect.width * rect.height
           intersection: (body-bounds player) `intersect` (body-bounds platform-inside)
         }
         false
+  
+  process-inside-wall: (color, platform) ->
+    | !color or !platform.color => throw "Something went wrong with platform/player color!"
+    | color is platform.color   =>
+      (player, platform-inside) ->
+        const intersect     = Phaser.Rectangle.intersection
+        const player-bounds = body-bounds player
+        const intersection  = player-bounds `intersect` (body-bounds platform-inside)
+
+        const player-area   = area player-bounds
+        const check-rect = union-excluding null, player
+
+        if (area intersection) > player-area * 0.9
+          # If we are engulfed by the wall AND a background wall, we don't need to collide
+          if (area check-rect) > player-area * 0.9
+            return false
+          # If we are engulfed only by a wall, we're dead
+          else
+            player.core.player-dead
+            return true
+        else
+          const dimen = (body-bounds platform-inside) `dimension-between` player-bounds
+          if check-rect[dimen] < player.body[dimen] - 0.5
+            # If we're not engulfed by the wall, and there's no room to slide into a background,
+            # We want to collide.
+            return true
+          else
+            # If we're engulfed by the wall, but DO have room to slide into a background, we
+            # don't want to collide
+            return false
+
+    | otherwise => -> false
 
   process-edge: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
