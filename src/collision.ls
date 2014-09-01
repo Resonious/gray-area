@@ -1,4 +1,4 @@
-{each, any, all, fold, foldr, filter, reject, map, empty, keys, values, abs, signum, join} = require 'prelude-ls'
+{each, all, fold, foldr, filter, reject, map, empty, keys, values, abs, signum, join} = require 'prelude-ls'
 
 Phaser.Physics.Arcade.Body.prototype
   ..bounds = -> new Phaser.Rectangle(@x, @y, @width, @height)
@@ -23,19 +23,8 @@ union-excluding = (platform, player) ->
   rect = unionify(fold) overlaps.pop!, overlaps
   unionify(foldr) rect, overlaps
 
-union-below = (platform, player) ->
-  overlaps = player.overlapping
-    |> reject (.platform.layer < platform.layer)
-    |> map (.intersection)
-
-  return new Phaser.Rectangle(0,0,0,0) if empty overlaps
-
-  rect = unionify(fold) overlaps.pop!, overlaps
-  unionify(foldr) rect, overlaps
-
 area = (rect) -> rect.width * rect.height
 
-# Unused I think?
 dimension-from = (body) ->
   | body.overlap-x <= 0 and body.overlap-y <= 0 =>
       console.log "Man x is #{body.overlap-x} and y is #{body.overlap-y}"
@@ -56,17 +45,17 @@ dimension-between = (bounds1, bounds2) ->
 
     platforms |> each (platform) ->
       physics.collide player, platform.inside, null,
-        (PlatformCollision.process-inside-backdrop player.color, platform)
+        (PlatformCollision.process-inside-different player.color, platform)
 
     platforms |> each (platform) ->
       physics.collide player, platform.inside, null,
-        (PlatformCollision.process-inside-wall player.color, platform)
+        (PlatformCollision.process-inside-same player.color, platform)
 
     platforms |> each (platform) ->
       physics.collide player, platform.edges, null,
         (PlatformCollision.process-edge player.color, platform)
 
-  process-inside-backdrop: (color, platform) ->
+  process-inside-different: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
     | color is platform.color   => -> false
     | otherwise =>
@@ -78,7 +67,7 @@ dimension-between = (bounds1, bounds2) ->
         }
         false
   
-  process-inside-wall: (color, platform) ->
+  process-inside-same: (color, platform) ->
     | !color or !platform.color => throw "Something went wrong with platform/player color!"
     | color is platform.color   =>
       (player, platform-inside) ->
@@ -87,7 +76,7 @@ dimension-between = (bounds1, bounds2) ->
         const intersection  = player-bounds `intersect` (body-bounds platform-inside)
 
         const player-area   = area player-bounds
-        const check-rect = union-below platform, player
+        const check-rect = union-excluding null, player
 
         if (area intersection) > player-area * 0.9
           # If we are engulfed by the wall AND a background wall, we don't need to collide
@@ -95,7 +84,7 @@ dimension-between = (bounds1, bounds2) ->
             return false
           # If we are engulfed only by a wall, we're dead
           else
-            player.core.player-dead!
+            player.core.player-dead
             return true
         else
           const dimen = (body-bounds platform-inside) `dimension-between` player-bounds

@@ -65,4 +65,5 @@ level-methods = (context) ->
         | \black => '#000000'
         | \gray  => '#CCCCCC'
         | otherwise => '#FFFFFF'
+    
     on-death: (context.on-death =)
