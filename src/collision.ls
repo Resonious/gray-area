@@ -1,4 +1,4 @@
-{each, all, fold, foldr, filter, reject, map, empty, keys, values, abs, signum, join} = require 'prelude-ls'
+{each, any, all, fold, foldr, filter, reject, map, empty, keys, values, abs, signum, join} = require 'prelude-ls'
 
 Phaser.Physics.Arcade.Body.prototype
   ..bounds = -> new Phaser.Rectangle(@x, @y, @width, @height)
@@ -23,8 +23,19 @@ union-excluding = (platform, player) ->
   rect = unionify(fold) overlaps.pop!, overlaps
   unionify(foldr) rect, overlaps
 
+union-below = (platform, player) ->
+  overlaps = player.overlapping
+    |> reject (.platform.layer < platform.layer)
+    |> map (.intersection)
+
+  return new Phaser.Rectangle(0,0,0,0) if empty overlaps
+
+  rect = unionify(fold) overlaps.pop!, overlaps
+  unionify(foldr) rect, overlaps
+
 area = (rect) -> rect.width * rect.height
 
+# Unused I think?
 dimension-from = (body) ->
   | body.overlap-x <= 0 and body.overlap-y <= 0 =>
       console.log "Man x is #{body.overlap-x} and y is #{body.overlap-y}"
@@ -76,7 +87,7 @@ dimension-between = (bounds1, bounds2) ->
         const intersection  = player-bounds `intersect` (body-bounds platform-inside)
 
         const player-area   = area player-bounds
-        const check-rect = union-excluding null, player
+        const check-rect = union-below platform, player
 
         if (area intersection) > player-area * 0.9
           # If we are engulfed by the wall AND a background wall, we don't need to collide
@@ -84,7 +95,7 @@ dimension-between = (bounds1, bounds2) ->
             return false
           # If we are engulfed only by a wall, we're dead
           else
-            player.core.player-dead
+            player.core.player-dead!
             return true
         else
           const dimen = (body-bounds platform-inside) `dimension-between` player-bounds

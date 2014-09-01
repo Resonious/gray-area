@@ -8,10 +8,10 @@
       x$ = level;
       y$ = x$.platform;
       y$.black(0, 200, 800, 300, this.upper);
-      y$.white(50, 290, 500, 100, this.lower);
+      y$.white(50, 150, 500, 200, this.lower);
       z$ = x$.player;
       z$.black(200, 100);
-      z$.white(220, 220);
+      z$.white(600, 220);
       x$.gray(0, 0, 50, 50, Level.Test);
       return x$;
     };

@@ -6,11 +6,11 @@ class @Level.Test extends Level
     level
       ..platform
         ..black  0 200 800 300 @upper
-        ..white 50 290 500 100 @lower
+        ..white 50 150 500 200 @lower
 
       ..player
         ..black 200 100
-        ..white 220 220
+        ..white 600 220
 
       ..gray 0 0 50 50 Level.Test
 
