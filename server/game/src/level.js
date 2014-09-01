@@ -8,6 +8,7 @@
     prototype.grays = [];
     prototype.levelWidth = 800;
     prototype.levelHeight = 500;
+    prototype.color = 'white';
     function Level(game, core){
       Level.superclass.call(this, game);
       this.onDeath = this.constructor;
@@ -86,6 +87,7 @@
         return context.grays.push(context.add(context.core.createGray(x, y, width, height, level)));
       },
       background: function(color){
+        context.color = color;
         return context.backgroundColor = (function(){
           switch (color) {
           case 'black':

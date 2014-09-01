@@ -5,6 +5,7 @@ class @Level extends Phaser.Group
   grays: []
   level-width: 800
   level-height: 500
+  color: \white
 
   (game, core) ->
     super game
@@ -61,6 +62,7 @@ level-methods = (context) ->
       context.grays.push context.add context.core.create-gray(x, y, width, height, level)
 
     background: (color) ->
+      context.color = color
       context.background-color = switch color
         | \black => '#000000'
         | \gray  => '#CCCCCC'
