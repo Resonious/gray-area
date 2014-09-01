@@ -81,7 +81,7 @@ class @Platform extends Phaser.Group
       @right.x = @body.x + @platform-width + 1 - @x
       @right.y = @body.y - @y
 
-    @custom-update(this) if @custom-update
+    (@custom-update this) if @custom-update
 
   debug: (game) !->
     @each game.debug~body

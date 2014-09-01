@@ -34,6 +34,8 @@ mul = (vec, scalar, target) --> target
 class @Player extends Phaser.Sprite
   @wall-slide-factor = 0.2
 
+  is-player: true
+
   arrow-keys: null
 
   max-speed: 250
@@ -59,8 +61,6 @@ class @Player extends Phaser.Sprite
 
   current: false
   finished: false
-
-  should-die: false
 
   (game, core, x, y, color) ->
     super game, x, y, "player-#color"

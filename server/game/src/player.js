@@ -60,6 +60,7 @@
   this.Player = Player = (function(superclass){
     var prototype = extend$((import$(Player, superclass).displayName = 'Player', Player), superclass).prototype, constructor = Player;
     Player.wallSlideFactor = 0.2;
+    prototype.isPlayer = true;
     prototype.arrowKeys = null;
     prototype.maxSpeed = 250;
     prototype.acceleration = 50;
@@ -83,7 +84,6 @@
     prototype.wallJumpTimer = 0.0;
     prototype.current = false;
     prototype.finished = false;
-    prototype.shouldDie = false;
     function Player(game, core, x, y, color){
       var x$, y$;
       Player.superclass.call(this, game, x, y, "player-" + color);

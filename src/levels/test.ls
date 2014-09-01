@@ -5,19 +5,20 @@ class @Level.Test extends Level
   init: (level) ->
     level
       ..platform
-        ..black  0 200 800 300 @upper
-        ..white 50 150 500 200 @lower
+        ..black 301 260 469 187
+        ..black   0 347 305 100
+
+      ..switch
+        ..black 467 253 (@the-switch \black)
+        ..white 409 440 (@the-switch \white)
 
       ..player
         ..black 200 100
-        ..white 600 220
+        ..white 490 313
 
       ..gray 0 0 50 50 Level.Test
 
-  upper: (platform) ->
-    platform.inside.z = 10
-    platform.custom-update = null
-
-  lower: (platform) ->
-    platform.inside.z = 5
-    platform.custom-update = null
+  the-switch: (color, self) -->
+    self.on-press = ->
+      const plr = if color is \black then 'whitePlayer' else 'blackPlayer'
+      self.core[plr].body.velocity.y = -500

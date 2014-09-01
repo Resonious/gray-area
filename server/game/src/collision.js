@@ -48,7 +48,7 @@
         return physics.collide(player, platform.inside, null, PlatformCollision.processInside(player.color, platform));
       })(
       platforms);
-      if (player.core.currentLevel.color === player.color) {
+      if (player.isPlayer && player.core.currentLevel.color === player.color) {
         if (empty(
         player.overlapping)) {
           return player.core.playerDead();

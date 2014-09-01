@@ -34,7 +34,7 @@ area = (rect) -> rect.width * rect.height
       physics.collide player, platform.inside, null,
         (PlatformCollision.process-inside player.color, platform)
 
-    if player.core.current-level.color is player.color
+    if player.is-player and player.core.current-level.color is player.color
       return player.core.player-dead! if player.overlapping |> empty
 
     platforms |> each (platform) ->

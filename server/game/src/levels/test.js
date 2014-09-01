@@ -4,25 +4,27 @@
   this.Level.Test = Test = (function(superclass){
     var prototype = extend$((import$(Test, superclass).displayName = 'Test', Test), superclass).prototype, constructor = Test;
     prototype.init = function(level){
-      var x$, y$, z$;
+      var x$, y$, z$, z1$;
       x$ = level;
       y$ = x$.platform;
-      y$.black(0, 200, 800, 300, this.upper);
-      y$.white(50, 150, 500, 200, this.lower);
-      z$ = x$.player;
-      z$.black(200, 100);
-      z$.white(600, 220);
+      y$.black(301, 260, 469, 187);
+      y$.black(0, 347, 305, 100);
+      z$ = x$['switch'];
+      z$.black(467, 253, this.theSwitch('black'));
+      z$.white(409, 440, this.theSwitch('white'));
+      z1$ = x$.player;
+      z1$.black(200, 100);
+      z1$.white(490, 313);
       x$.gray(0, 0, 50, 50, Level.Test);
       return x$;
     };
-    prototype.upper = function(platform){
-      platform.inside.z = 10;
-      return platform.customUpdate = null;
-    };
-    prototype.lower = function(platform){
-      platform.inside.z = 5;
-      return platform.customUpdate = null;
-    };
+    prototype.theSwitch = curry$(function(color, self){
+      return self.onPress = function(){
+        var plr;
+        plr = color === 'black' ? 'whitePlayer' : 'blackPlayer';
+        return self.core[plr].body.velocity.y = -500;
+      };
+    });
     function Test(){
       Test.superclass.apply(this, arguments);
     }
@@ -38,5 +40,18 @@
     var own = {}.hasOwnProperty;
     for (var key in src) if (own.call(src, key)) obj[key] = src[key];
     return obj;
+  }
+  function curry$(f, bound){
+    var context,
+    _curry = function(args) {
+      return f.length > 1 ? function(){
+        var params = args ? args.concat() : [];
+        context = bound ? context || this : this;
+        return params.push.apply(params, arguments) <
+            f.length && arguments.length ?
+          _curry.call(context, params) : f.apply(context, params);
+      } : f;
+    };
+    return _curry();
   }
 }).call(this);

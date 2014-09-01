@@ -1,4 +1,4 @@
-{each, all, map, filter, first, head, lines, keys, values, head} = require 'prelude-ls'
+{each, curry, all, map, filter, first, head, lines, keys, values, head} = require 'prelude-ls'
 
 mul = (vec, scalar) -->
   new Phaser.Point(vec.x * scalar, vec.y * scalar)
@@ -15,6 +15,18 @@ class @GameCore
       ..image 'red'   asset 'gfx/tiles/red.png'
       ..image 'empty' asset 'gfx/tiles/empty.png'
       ..image 'gray'  asset 'gfx/tiles/gray.png'
+
+      ..spritesheet 'switch-black' (asset 'gfx/objects/switch-black.png'), 34 14
+      ..spritesheet 'switch-white' (asset 'gfx/objects/switch-white.png'), 34 14
+
+      # ..image 'fade-from-black-hori' asset 'gfx/tiles/fade-from-black-hori.png'
+      # ..image 'fade-from-black-vert' asset 'gfx/tiles/fade-from-black-vert.png'
+
+      # ..image 'fade-from-white-hori' asset 'gfx/tiles/fade-from-white-hori.png'
+      # ..image 'fade-from-white-vert' asset 'gfx/tiles/fade-from-white-vert.png'
+
+      # ..script 'blur-x' asset 'filters/BlurX.js'
+      # ..script 'blur-y' asset 'filters/BlurY.js'
 
       ..image 'indicator' asset 'gfx/ui/indicator.png'
       ..image 'locator' asset 'gfx/ui/locator.png'
@@ -37,6 +49,7 @@ class @GameCore
 
   create: !->
     custom-add-functions @game, this
+    @game.core = this
 
     let (add     = @game.add,
          physics = @game.physics,
@@ -51,11 +64,11 @@ class @GameCore
 
       physics.start-system Phaser.Physics.ARCADE
 
-      @swap-sound = add.audio 'swap'
-      @cant-swap-sound = add.audio 'cant-swap'
+      @swap-sound           = add.audio 'swap'
+      @cant-swap-sound      = add.audio 'cant-swap'
       @level-complete-sound = add.audio 'level-complete'
-      @death-sound = add.audio 'death'
-      @reset-sound = add.audio 'reset'
+      @death-sound          = add.audio 'death'
+      @reset-sound          = add.audio 'reset'
 
       @arrow-keys = @game.input.keyboard.create-cursor-keys!
 
@@ -72,12 +85,17 @@ class @GameCore
 
       @platforms = add.group!
       @dangers   = add.group!
-      @load-level Level.One
+      @objects   = add.group!
+      @load-level Level.Test
+
+      @toggle-sound! if local-storage.mute-gray-area
 
   load-level: (level) !->
     if @current-level
       @dangers.remove-all true
       @platforms.remove-all true
+      @objects.remove-all true
+
       @current-level.destroy!
 
       [@white-player, @black-player] |> each (.body.enable = false)
@@ -122,6 +140,13 @@ class @GameCore
     let arcade = @game.physics.arcade
       arcade.collide @black-player, @dangers, @player-dead if @black-player
       arcade.collide @white-player, @dangers, @player-dead if @white-player
+
+      @objects.each (obj) ~>
+        [@black-player, @white-player] |> each (player) ~>
+          arcade.collide player, obj, 
+                         obj.on-player-collide,
+                         obj.process-player-collide,
+                         obj
 
     [@black-player, @white-player] |> each (player) ~>
       @game.physics.arcade.collide player, @current-level.grays, null, @finish-player
@@ -222,9 +247,11 @@ class @GameCore
     if @game.sound.mute
       @sound-toggle.load-texture 'sound'
       @game.sound.mute = false
+      local-storage.mute-gray-area = false
     else
       @sound-toggle.load-texture 'no-sound'
       @game.sound.mute = true
+      local-storage.mute-gray-area = true
 
   create-gray: (x, y, width = 256, height = 256, next-level) ->
     throw "Next level required!" unless next-level
@@ -250,6 +277,9 @@ custom-add-functions = (game, core) !->
                            else core.white-player = plr
       platform: (x, y, w, h) ->
         core.platforms.add new Platform(game, x, y, w, h, color)
+
+      switch: (x, y, w, h) ->
+        core.objects.add new Switch(game, core, x, y, color)
 
     game.add.danger = (x, y, w, h) ->
       const dang = core.dangers.add new Phaser.Sprite(game, x, y, 'red')

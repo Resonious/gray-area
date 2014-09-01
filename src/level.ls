@@ -3,6 +3,7 @@
 class @Level extends Phaser.Group
   platforms: []
   grays: []
+
   level-width: 800
   level-height: 500
   color: \white
@@ -51,6 +52,14 @@ level-methods = (context) ->
       context.add new Phaser.Text(
         context.game, x, y, 
         content, { font: "45px Arial", fill: color or '#C0C0C0', align: "center" })
+
+    switch:
+      of-color: (color, x, y, config-func) ->
+        const swit = context.game.add[color].switch x, y
+        config-func swit if config-func
+
+      black: (...args) -> context.level.switch.of-color \black, ...args
+      white: (...args) -> context.level.switch.of-color \white, ...args
 
     danger: (x, y, w, h) ->
       context.game.add.danger x, y, w, h

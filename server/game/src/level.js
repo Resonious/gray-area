@@ -76,6 +76,25 @@
           align: "center"
         }));
       },
+      'switch': {
+        ofColor: function(color, x, y, configFunc){
+          var swit;
+          swit = context.game.add[color]['switch'](x, y);
+          if (configFunc) {
+            return configFunc(swit);
+          }
+        },
+        black: function(){
+          var args, ref$;
+          args = slice$.call(arguments);
+          return (ref$ = context.level['switch']).ofColor.apply(ref$, ['black'].concat(slice$.call(args)));
+        },
+        white: function(){
+          var args, ref$;
+          args = slice$.call(arguments);
+          return (ref$ = context.level['switch']).ofColor.apply(ref$, ['white'].concat(slice$.call(args)));
+        }
+      },
       danger: function(x, y, w, h){
         return context.game.add.danger(x, y, w, h);
       },
