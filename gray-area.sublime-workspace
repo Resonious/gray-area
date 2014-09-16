@@ -1,0 +1,1189 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"relative",
+				"relative-dimension"
+			],
+			[
+				"currne",
+				"current-player"
+			],
+			[
+				"fo",
+				"fora	Array Comprehension"
+			],
+			[
+				"player",
+				"Player"
+			],
+			[
+				"it",
+				"it"
+			],
+			[
+				"Ver",
+				"vertex3f"
+			],
+			[
+				"remove",
+				"removeBlockTileEntity"
+			],
+			[
+				"for",
+				"for	for - Yield"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/collision.ls",
+			"settings":
+			{
+				"buffer_size": 2725,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Nigel/Documents/Minecraft/MultiMC/instances/Modpack/minecraft/crash-reports/crash-2014-09-11_23.40.39-client.txt",
+			"settings":
+			{
+				"buffer_size": 21407,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/level.ls",
+			"settings":
+			{
+				"buffer_size": 2491,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/switch.ls",
+			"settings":
+			{
+				"buffer_size": 1106,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "server/index.html",
+			"settings":
+			{
+				"buffer_size": 1377,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/game.ls",
+			"settings":
+			{
+				"buffer_size": 9608,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/levels/three.ls",
+			"settings":
+			{
+				"buffer_size": 773,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/levels/test.ls",
+			"settings":
+			{
+				"buffer_size": 568,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/player.ls",
+			"settings":
+			{
+				"buffer_size": 6387,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/platform.ls",
+			"settings":
+			{
+				"buffer_size": 2572,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"setsynlives",
+				"Set Syntax: LiveScript"
+			],
+			[
+				"colinstall",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"removepa",
+				"Package Control: Remove Package"
+			],
+			[
+				"removep",
+				"Package Control: Remove Package"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
+			[
+				"live",
+				"Set Syntax: LiveScript"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"colorsublime",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"installpa",
+				"Package Control: Install Package"
+			],
+			[
+				"colosu",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"colorsu",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src"
+	],
+	"file_history":
+	[
+		"/C/Users/Nigel/Documents/Minecraft/ForgeServer/server.properties",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/filters/blur-filter.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/filters/blur-y-filter.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/filters/blur-x-filter.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/blur-filter.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/level.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/filters/BlurY.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/filters/BlurX.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/filters/blur-y.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/filters/blur-x.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/404.html",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/asset_development/hit-ground-1.wav",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/levels/three.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/platform.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/index.html",
+		"/C/Users/Nigel/Documents/PhaserExamples/filters/Marble.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/start_server.bat",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/collision.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/level.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/test.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/three.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/game.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/phaser.js",
+		"/C/Users/Nigel/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/game.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/player.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area Publish/gray-area-publish/index.html",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/one.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/four.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/five.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/thank-you.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/two.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/src/levels/three-scrapped.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/levels/one.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/filters/fire.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/filters/fire.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/src/game.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/LICENSE",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/assets/maps/test-map.json",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/collision.js",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/game/src/platform.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/game/game.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/src/player.ls",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/server/prelude.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/server/index.html",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/build_watch.bat",
+		"/C/Users/Nigel/Documents/Ludum Dare/Gray Area/build_watch.bat",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/src/game.ls",
+		"/C/Users/Nigel/Documents/Test/test.ls",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/server/extract.js",
+		"/C/Users/Nigel/AppData/Local/Temp/Temp1_The Sun And Moon SOURCE.zip/The Sun And Moon SOURCE.gmx/scripts/f_determine_sprite.gml",
+		"/C/Users/Nigel/AndroidStudioProjects/PhaserTest/app/src/main/java/net/resonious/phasertest/GameActivity.java",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/server/game/src/game.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Arbitrarily/asset_development/player.pyxel",
+		"/C/Users/Nigel/Downloads/DemoDoc.pyxel",
+		"/C/Users/Nigel/Dropbox/Scala/solution.rb",
+		"/C/Users/Nigel/Dropbox/Scala/test.scala",
+		"/C/Users/Nigel/Dropbox/Scala/solution.scala",
+		"/C/Users/Nigel/Dropbox/LiveScript/test.ls",
+		"/C/Users/Nigel/Dropbox/LiveScript/LivelyMan.ls",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/phaser.min.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/prelude.min.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/index.html",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/build_watch.bat",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/game/assets/.htaccess",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/.htaccess",
+		"/C/Users/Nigel/Documents/Virtual Machines/Ubuntu 64-bit/Ubuntu 64-bit.vmx",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/.htaccess.txt",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/server/game/assets/.htaccess.txt",
+		"/C/Users/Nigel/AppData/Roaming/npm/node_modules/http-server/public/index.html",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/build_watch - Copy.bat",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/out/game.js",
+		"/C/Users/Nigel/Dropbox/LiveScript/Game Practice/src/livescript/game.ls",
+		"/C/Users/Nigel/Documents/Haskell/HelloWorld.hs",
+		"/C/Users/Nigel/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Nigel/Dropbox/Crattle/CCGame/CrattleCrute/Bin/Assets/Scripts/test.lua",
+		"/C/Users/Nigel/Dropbox/Crattle/CCGame/CrattleCrute/Bin/CoreData/Shaders/GLSL/Outline.glsl",
+		"/C/Users/Nigel/AppData/Local/Temp/7zOED5D.tmp/sdl2.cabal",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/hax/ClassGenerator.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/eclipse/sburb.dat",
+		"/C/Users/Nigel/AppData/Roaming/Sublime Text 3/Packages/User/Scala.sublime-build",
+		"/C/Users/Nigel/Dropbox/test.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/hax/transformers/CollisionTransformer.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/hax/injections/BlockCollisionInjector.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCP/conf/fields.csv",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCP/conf/methods.csv",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCP/conf/joined.srg",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/game/SburbProperties.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/eclipse/CuE7aTOJiB.sburb",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/game/SburbPlayerRenderer.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/abstracts/Pimp.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/blocks/DummyBlock.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/blocks/Computer.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/hax/SburbCore.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/hax/SburbTransformer.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/hax/SburbLoadPlugin.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/hax/SburbLoadPlugin.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/hax/SburbCore.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/hax/SburbTransformer.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/build.gradle",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO2E92.tmp/Sburb$$anonfun$init$4.class",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO1B25.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/AppData/Roaming/.minecraft/mods/MANIFEST.MF",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO8A3A.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/abstracts/GuiId.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/blocks/HouseIndicator.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/Sburb.scala",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO6C6C.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/game/SburbServerMode.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/proxy/CommonProxy.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/abstracts/ActiveTileEntityRenderer.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/java/net/resonious/sburb/models/Cruxtruder.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/blocks/MultiBlock.scala",
+		"/C/Users/Nigel/AppData/Local/Temp/7zOA3DE.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO6E4C.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/AppData/Local/Temp/7zOC2A4.tmp/RenderPlayerBase.class",
+		"/C/Users/Nigel/AppData/Local/Temp/7zO9656.tmp/MANIFEST.MF",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/META-INF/MANIFEST.MF",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/sylladex/TestModus.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/resources/mcmod.info",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/game/grist/GristShopInventory.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/game/grist/GristShopContainer.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/other/Cruxtruder.java",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/abstracts/DummyContainer.scala",
+		"/C/Users/Nigel/Documents/Java2Scala/app/models/Conversion.scala",
+		"/C/Users/Nigel/Documents/Java2Scala/app/controllers/Application.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/gui/HouseIndicatorGui.scala",
+		"/C/Users/Nigel/Dropbox/MinecraftSBURB/MCSBURB/src/main/scala/net/resonious/sburb/abstracts/ActiveTileEntity.scala"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"blur",
+			"player",
+			"439",
+			"it",
+			"swtch",
+			"if @on",
+			"@on",
+			"objects",
+			"y",
+			"object",
+			"spritessheet",
+			"image",
+			"switch",
+			"platform",
+			"process",
+			"was-down",
+			",",
+			"platforms",
+			"current-level.platforms",
+			"black",
+			"@game",
+			"filters/blur",
+			"mute",
+			"..filter",
+			"filter",
+			"blur-x",
+			"blur",
+			"filter",
+			"horizontal",
+			".png",
+			"\"fade-from-#@color\"",
+			"die",
+			"bounds",
+			"err",
+			"union-below",
+			"inside-same",
+			"process-inside-different",
+			"{each, all, fold, foldr, filter, reject, map, empty, keys, values, abs, signum, join} = require 'prelude-ls'\n\nPhaser.Physics.Arcade.Body.prototype\n  ..bounds = -> new Phaser.Rectangle(@x, @y, @width, @height)\n\nbody-bounds = (sprite) ->\n  const b = sprite.body\n  new Phaser.Rectangle(b.x, b.y, b.width, b.height)\n\nunionify = (func) -> func (total, overlap) ->\n  if Phaser.Rectangle.intersects overlap, total\n    Phaser.Rectangle.union overlap, total\n  else\n    total\n\nunion-excluding = (platform, player) ->\n  overlaps = player.overlapping \n    |> reject (.platform is platform)\n    |> map (.intersection)\n  \n  return new Phaser.Rectangle(0,0,0,0) if empty overlaps\n\n  rect = unionify(fold) overlaps.pop!, overlaps\n  unionify(foldr) rect, overlaps\n\narea = (rect) -> rect.width * rect.height\n\n@PlatformCollision =\n  collide: (physics, platforms, player) -->\n    throw \"Invalid physics #physics\" unless physics\n    player.overlapping = []\n\n    platforms |> each (platform) ->\n      physics.collide player, platform.inside, null,\n        (PlatformCollision.process-inside player.color, platform)\n\n    platforms |> each (platform) ->\n      physics.collide player, platform.edges, null,\n        (PlatformCollision.process-edge player.color, platform)\n\n  process-inside: (color, platform) ->\n    | !color or !platform.color => throw \"Something went wrong with platform/player color!\"\n    | color is platform.color   =>\n      (player, platform-inside) ->\n        const intersect = Phaser.Rectangle.intersection\n        const player-bounds = body-bounds player\n        const intersection = player-bounds `intersect` (body-bounds platform-inside)\n        player.core.player-dead! if (area intersection) > (area player-bounds) * 0.9\n        true\n    | otherwise =>\n      (player, platform-inside) ->\n        const intersect = Phaser.Rectangle.intersection\n        player.overlapping.push {\n          platform: platform\n          intersection: (body-bounds player) `intersect` (body-bounds platform-inside)\n        }\n        false\n\n  process-edge: (color, platform) ->\n    | !color or !platform.color => throw \"Something went wrong with platform/player color!\"\n    | color is platform.color   => null\n    | otherwise =>\n      (player, platform-edge) ->\n        const dimen = platform-edge.relative-dimension\n        const check-rect = union-excluding platform, player\n\n        if check-rect[dimen] < player.body[dimen] - 2\n          return true\n        else # FIXME this bit is a little finnickey sometimes\n          not Phaser.Rectangle.intersects (body-bounds platform-edge), check-rect\n",
+			"union-excluding",
+			"platform.z",
+			"platform",
+			"it[",
+			"body",
+			"dimension-from",
+			"false",
+			"@inside.body",
+			"@y - @",
+			"@x - ",
+			"y - @",
+			"x - @",
+			"x -",
+			"platform",
+			"wall-sliding",
+			"hit-right",
+			"near-wall-slide-x",
+			"five",
+			".R",
+			"current-player",
+			".y",
+			"-y",
+			"y",
+			"four",
+			"do-gui",
+			"input",
+			".sound",
+			"sound-toggle",
+			"true",
+			"death",
+			"three",
+			"170",
+			".y",
+			"100",
+			"@game",
+			"set-timeout",
+			"inter",
+			"10000",
+			"reset",
+			"delta",
+			"883",
+			"moves-on-axis",
+			"set-velocity-to",
+			"otherAxis",
+			"700",
+			"new Player",
+			"1000",
+			"Quadratic",
+			"update",
+			"body",
+			"after-death",
+			"next-level",
+			"level.gray",
+			".gray",
+			"collide",
+			"dangers",
+			"player-dead",
+			"black",
+			".platforms",
+			"each",
+			"process-inside",
+			"one",
+			"do-gui",
+			"z =",
+			"50",
+			"45000",
+			"Out",
+			"100",
+			"500",
+			"1000",
+			"level-complete-sounrd",
+			"sound",
+			"sounrd",
+			"if target",
+			"target.x",
+			"out",
+			"mul =",
+			"{ x",
+			"camera.follow",
+			"filter",
+			"switch-players",
+			"gray-filter",
+			"0.5",
+			"165",
+			"@_gray",
+			"make",
+			"add",
+			"256",
+			"wall-sliding",
+			"new-wall-sliding"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"on-death"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/collision.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2725,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2725,
+								2725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 259.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Nigel/Documents/Minecraft/MultiMC/instances/Modpack/minecraft/crash-reports/crash-2014-09-11_23.40.39-client.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21407,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/level.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2491,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								395,
+								395
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 33.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/switch.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1106,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1106,
+								1106
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "server/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1377,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								380,
+								380
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/game.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9608,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4809,
+								4809
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1788.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/levels/three.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 773,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								738,
+								738
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/levels/test.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 568,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								567,
+								567
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "src/player.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6387,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1920,
+								1920
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 870.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/platform.ls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2572,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2528,
+								2530
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LiveScript/Syntaxes/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 750.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.60275862069,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 214.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 100.0
+	},
+	"project": "gray-area.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"levells",
+				"src\\level.ls"
+			],
+			[
+				"html",
+				"server\\index.html"
+			],
+			[
+				"three",
+				"src\\levels\\three.ls"
+			],
+			[
+				"platformls",
+				"src\\platform.ls"
+			],
+			[
+				"playerls",
+				"src\\player.ls"
+			],
+			[
+				"indexhtml",
+				"server\\index.html"
+			],
+			[
+				"leveljs",
+				"server\\game\\src\\level.js"
+			],
+			[
+				"gamels",
+				"src\\game.ls"
+			],
+			[
+				"testls",
+				"src\\levels\\test.ls"
+			],
+			[
+				"collision",
+				"src\\collision.ls"
+			],
+			[
+				"platformsl",
+				"src\\platform.ls"
+			],
+			[
+				"index",
+				"server\\index.html"
+			],
+			[
+				"threels",
+				"src\\levels\\three.ls"
+			],
+			[
+				"threjs",
+				"server\\game\\src\\levels\\three.js"
+			],
+			[
+				"onels",
+				"src\\levels\\one.ls"
+			],
+			[
+				"fire",
+				"server\\game\\assets\\filters\\fire.js"
+			],
+			[
+				"onejs",
+				"server\\game\\src\\levels\\one.js"
+			],
+			[
+				"game.js",
+				"server\\game\\src\\game.js"
+			],
+			[
+				"json",
+				"server\\game\\assets\\maps\\test-map.json"
+			],
+			[
+				"htaccess",
+				"server\\.htaccess.txt"
+			],
+			[
+				"hta",
+				"server\\game\\assets\\.htaccess.txt"
+			],
+			[
+				"htac",
+				"server\\.htaccess.txt"
+			],
+			[
+				"gamejs",
+				"server\\game\\game.js"
+			],
+			[
+				"gamje",
+				"out\\game.js"
+			],
+			[
+				"gamls",
+				"src\\game.ls"
+			],
+			[
+				"gamle",
+				"src\\game.ls"
+			],
+			[
+				"js",
+				"out\\game.js"
+			],
+			[
+				"",
+				"src\\game.ls"
+			],
+			[
+				"props",
+				"scala\\net\\resonious\\sburb\\game\\SburbProperties.scala"
+			],
+			[
+				"blockc",
+				"java\\net\\resonious\\sburb\\hax\\injections\\BlockCollisionInjector.java"
+			],
+			[
+				"collisiontransformer",
+				"java\\net\\resonious\\sburb\\hax\\transformers\\CollisionTransformer.java"
+			],
+			[
+				"plusca",
+				"scala\\net\\resonious\\sburb\\hax\\SburbLoadPlugin.scala"
+			],
+			[
+				"sburbload",
+				"java\\net\\resonious\\sburb\\hax\\SburbLoadPlugin.java"
+			],
+			[
+				"corescal",
+				"scala\\net\\resonious\\sburb\\hax\\SburbCore.scala"
+			],
+			[
+				"sburbcore",
+				"java\\net\\resonious\\sburb\\hax\\SburbCore.java"
+			],
+			[
+				"trans",
+				"scala\\net\\resonious\\sburb\\hax\\SburbTransformer.scala"
+			],
+			[
+				"sburbtransform",
+				"java\\net\\resonious\\sburb\\hax\\SburbTransformer.java"
+			],
+			[
+				"mulbl",
+				"scala\\net\\resonious\\sburb\\blocks\\MultiBlock.scala"
+			],
+			[
+				"modelcrux",
+				"java\\net\\resonious\\sburb\\models\\Cruxtruder.java"
+			],
+			[
+				"dummyblock",
+				"scala\\net\\resonious\\sburb\\blocks\\DummyBlock.scala"
+			],
+			[
+				"house",
+				"scala\\net\\resonious\\sburb\\blocks\\HouseIndicator.scala"
+			],
+			[
+				"tileentitys",
+				"scala\\net\\resonious\\sburb\\abstracts\\ActiveTileEntityRenderer.scala"
+			],
+			[
+				"gristshop",
+				"scala\\net\\resonious\\sburb\\game\\grist\\GristShopSlot.scala"
+			],
+			[
+				"sburbproper",
+				"scala\\net\\resonious\\sburb\\game\\SburbProperties.scala"
+			],
+			[
+				"servermode",
+				"scala\\net\\resonious\\sburb\\game\\SburbServerMode.scala"
+			],
+			[
+				"imp",
+				"scala\\net\\resonious\\sburb\\abstracts\\Pimp.scala"
+			],
+			[
+				"guiid",
+				"scala\\net\\resonious\\sburb\\abstracts\\GuiId.scala"
+			],
+			[
+				"gristshopinventory",
+				"scala\\net\\resonious\\sburb\\game\\grist\\GristShopInventory.scala"
+			],
+			[
+				"gristshopgiu",
+				"scala\\net\\resonious\\sburb\\game\\grist\\GristShopGui.scala"
+			],
+			[
+				"grisgui",
+				"scala\\net\\resonious\\sburb\\game\\grist\\GristShopGui.scala"
+			],
+			[
+				"griscon",
+				"scala\\net\\resonious\\sburb\\game\\grist\\GristShopContainer.scala"
+			],
+			[
+				"spro",
+				"scala\\net\\resonious\\sburb\\game\\SburbProperties.scala"
+			],
+			[
+				"sb",
+				"scala\\net\\resonious\\sburb\\Sburb.scala"
+			],
+			[
+				"sburb",
+				"scala\\net\\resonious\\sburb\\game\\SburbServerMode.scala"
+			],
+			[
+				"events",
+				"scala\\net\\resonious\\sburb\\Events.scala"
+			],
+			[
+				"sbcom",
+				"scala\\net\\resonious\\sburb\\commands\\SburbCommand.scala"
+			],
+			[
+				"old",
+				"scala\\net\\resonious\\sburb\\game\\OldSburbProperties.scala"
+			],
+			[
+				"sburbservmo",
+				"scala\\net\\resonious\\sburb\\game\\SburbServerMode.scala"
+			],
+			[
+				"sbur",
+				"scala\\net\\resonious\\sburb\\Sburb.scala"
+			],
+			[
+				"comproxy",
+				"scala\\net\\resonious\\sburb\\proxy\\CommonProxy.scala"
+			],
+			[
+				"sbgame",
+				"scala\\net\\resonious\\sburb\\game\\SburbGame.scala"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 357.0,
+		"selected_items":
+		[
+			[
+				"doani",
+				"do-animations"
+			],
+			[
+				"loadlevel",
+				"load-level"
+			],
+			[
+				"create-gry",
+				"create-gray"
+			],
+			[
+				"towards",
+				"towards"
+			],
+			[
+				"readst",
+				"readString"
+			]
+		],
+		"width": 392.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"last_automatic_layout":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		]
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
