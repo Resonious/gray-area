@@ -173,9 +173,7 @@ class @Player extends Phaser.Sprite
     @body.velocity.x = 0 if @body.velocity.x |> isNaN
 
     # ========= ARROW CONTROLS ============
-    if @wall-jump-timer > 0
-      @wall-jump-timer -= delta
-    else if c-axis isnt 0
+    if c-axis isnt 0
       passed = switch @target-direction
         | 1  => (>)
         | -1 => (<)
@@ -188,29 +186,6 @@ class @Player extends Phaser.Sprite
       @body.velocity.x = towards-zero-by @deceleration
 
     # ========== WALL SLIDING AND AIR TIMER =============
-    
-    const near-wall-slide-x = @body.x > @wall-slide-x - 1 and @body.x < @wall-slide-x + 1
-    const hit-right = (@hit \right)
-    const hit-left  = (@hit \left)
-    const new-wall-sliding = (
-        hit-right or hit-left or near-wall-slide-x) and not @is-grounded!
-
-    if new-wall-sliding and not @wall-sliding
-      @body.velocity.y = 0 if @body.velocity.y > 0
-      @wall-slide-x = @body.x
-
-    @wall-sliding = new-wall-sliding
-
-    if @wall-jump-timer > 0
-      mul @gravity, 0, @body.gravity
-    
-    if @wall-sliding
-      @wall-slide-hit = if hit-right then -1 else if hit-left then 1 else -@target-direction
-      mul @gravity, @@wall-slide-factor, @body.gravity if @body.velocity.y > 0
-    else
-      mul @gravity, 1, @body.gravity
-      @wall-slide-x or= null
-
 
     if @is-grounded!
       unless @was-grounded
@@ -223,17 +198,6 @@ class @Player extends Phaser.Sprite
 
     # ========== JUMPING ===========
     if jump
-      if @wall-sliding and @air-timer > 0.15 and not @jumped
-        # WALL JUMP!
-        @body.velocity.y = -@jump-force * 1.5
-        @body.velocity.x = @wall-slide-hit * @jump-force
-
-        @target-direction = @wall-slide-hit
-        @wall-jump-timer = 0.15
-
-        @sound.jump.play '' 0 0.65 false
-
-      else if @is-grounded! or @air-timer < @jump-while-off-ground-time
         # NORMAL JUMP!
         @body.velocity.y = -@jump-force
         @sound.jump.play '' 0 1 false if @jump-timer is 0
